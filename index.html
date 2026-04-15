@@ -1,0 +1,1639 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The Opening — Investor Demo</title>
+<style>
+:root,[data-theme="light"]{
+  --text-xs:clamp(.75rem,.7rem + .25vw,.875rem);--text-sm:clamp(.875rem,.8rem + .35vw,1rem);
+  --text-base:clamp(1rem,.95rem + .25vw,1.125rem);--text-lg:clamp(1.125rem,1rem + .75vw,1.5rem);
+  --text-xl:clamp(1.5rem,1.2rem + 1.25vw,2.25rem);--text-2xl:clamp(2rem,1.2rem + 2.5vw,3.25rem);
+  --space-1:.25rem;--space-2:.5rem;--space-3:.75rem;--space-4:1rem;--space-5:1.25rem;
+  --space-6:1.5rem;--space-8:2rem;--space-10:2.5rem;--space-12:3rem;
+  --radius-sm:.375rem;--radius-md:.5rem;--radius-lg:.75rem;--radius-xl:1rem;
+  --radius-2xl:1.5rem;--radius-full:9999px;
+  --color-bg:#f3f2ee;--color-surface:#faf9f6;--color-surface-2:#fff;
+  --color-surface-offset:#ece8e1;--color-border:#d6d0c8;--color-divider:#ddd7ce;
+  --color-text:#201d18;--color-text-muted:#696660;--color-text-faint:#9b968d;
+  --color-text-inverse:#fffdf8;
+  --color-primary:#0c6b73;--color-primary-hover:#084d53;
+  --color-success:#3f7f28;--color-warning:#cf7b15;--color-error:#a13f4e;
+  --color-gold:#bc8d1e;--color-gold-2:#e2b24d;
+  --shadow-sm:0 2px 8px rgba(32,29,24,.06);--shadow-md:0 14px 40px rgba(32,29,24,.12);
+  --shadow-lg:0 28px 64px rgba(32,29,24,.16);
+  --font-body:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --font-display:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+}
+[data-theme="dark"]{
+  --color-bg:#0c0d10;--color-surface:#111318;--color-surface-2:#171a20;
+  --color-surface-offset:#1d2129;--color-border:#2b3039;--color-divider:#232831;
+  --color-text:#edf1f5;--color-text-muted:#a7afb9;--color-text-faint:#707884;
+  --color-text-inverse:#0c0d10;
+  --color-primary:#6ab3bc;--color-primary-hover:#85c4cb;
+  --color-success:#84bf62;--color-warning:#e7a54c;--color-error:#e46f7f;
+  --color-gold:#e2b24d;--color-gold-2:#f3d280;
+  --shadow-sm:0 2px 10px rgba(0,0,0,.24);--shadow-md:0 18px 44px rgba(0,0,0,.35);
+  --shadow-lg:0 32px 90px rgba(0,0,0,.52);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:none;text-size-adjust:none;scroll-behavior:smooth}
+body{
+  min-height:100dvh;font-family:var(--font-body);font-size:var(--text-base);
+  line-height:1.6;color:var(--color-text);overflow-x:hidden;
+  background:
+    radial-gradient(circle at 20% 0%,rgba(226,178,77,.12),transparent 24%),
+    radial-gradient(circle at 82% 12%,rgba(106,179,188,.11),transparent 18%),
+    linear-gradient(180deg,rgba(255,255,255,.02),transparent 30%),
+    var(--color-bg);
+}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer;border:none;background:none}
+:focus-visible{outline:2px solid var(--color-primary);outline-offset:3px;border-radius:var(--radius-sm)}
+.app{max-width:1360px;margin:0 auto;padding:var(--space-6)}
+
+/* ── HEADER ── */
+.header-shell,.card,.stage-shell,.result-banner,.ticker{
+  border:1px solid color-mix(in srgb,var(--color-text) 10%,transparent);
+  background:color-mix(in srgb,var(--color-surface) 90%,transparent)
+}
+.header-shell{
+  position:sticky;top:14px;z-index:30;
+  display:flex;justify-content:space-between;align-items:center;gap:var(--space-4);
+  padding:var(--space-4) var(--space-5);border-radius:22px;
+  backdrop-filter:blur(18px);box-shadow:var(--shadow-md);margin-bottom:var(--space-4)
+}
+.brand{display:flex;gap:var(--space-4);align-items:center}
+.logo{
+  width:60px;height:60px;border-radius:18px;display:grid;place-items:center;
+  color:var(--color-gold-2);
+  background:linear-gradient(180deg,rgba(226,178,77,.22),rgba(255,255,255,.02));
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 10px 30px rgba(0,0,0,.25)
+}
+.logo svg{width:30px;height:30px}
+.eyebrow{font-size:var(--text-xs);letter-spacing:.18em;text-transform:uppercase;color:var(--color-gold-2);font-weight:700;margin-bottom:.15rem}
+h1{font-family:var(--font-display);font-size:var(--text-xl);line-height:1.02;letter-spacing:-.04em}
+.sub{font-size:var(--text-sm);color:var(--color-text-muted)}
+.top-meta{display:flex;align-items:center;gap:var(--space-3);flex-wrap:wrap;justify-content:flex-end}
+.pill,.timer,.icon-btn,.hero-stat,.pitch-chip{
+  border:1px solid color-mix(in srgb,var(--color-text) 10%,transparent);
+  background:color-mix(in srgb,var(--color-surface-2) 88%,transparent)
+}
+.pill{padding:.55rem .92rem;border-radius:999px;font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.14em;font-weight:700}
+.pill.open{color:var(--color-success)}.pill.locked{color:var(--color-warning)}.pill.revealing{color:var(--color-primary)}.pill.settled{color:var(--color-gold-2)}
+.timer{min-width:92px;padding:.8rem 1rem;border-radius:18px;text-align:center;font-weight:800;font-variant-numeric:tabular-nums;font-size:1.05rem}
+.icon-btn{width:46px;height:46px;border-radius:16px;display:grid;place-items:center}
+
+/* ── LAYOUT ── */
+.layout{display:grid;grid-template-columns:1.55fr 1fr;gap:var(--space-6)}
+
+/* ── STAGE SHELL ── */
+.stage-shell{
+  position:relative;border-radius:32px;overflow:hidden;box-shadow:var(--shadow-lg);
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.03),transparent 18%),
+    linear-gradient(180deg,color-mix(in srgb,var(--color-surface-2) 96%,transparent),color-mix(in srgb,var(--color-surface) 94%,transparent));
+  border:1px solid color-mix(in srgb,var(--color-text) 10%,transparent);
+}
+.stage-shell::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 74px,rgba(255,255,255,.018) 74px 75px);opacity:.35;pointer-events:none;z-index:1}
+.stage-shell::after{content:"";position:absolute;left:0;right:0;bottom:0;height:160px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.16));pointer-events:none;z-index:1}
+.dramatic-overlay{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .22s ease;z-index:2;background:radial-gradient(circle at 50% 30%,rgba(255,255,255,.06),transparent 20%),radial-gradient(circle at 50% 20%,rgba(226,178,77,.14),transparent 42%)}
+.stage-shell.reveal-mode .dramatic-overlay{opacity:1}
+.sweep{position:absolute;top:80px;left:-20%;width:36%;height:5px;border-radius:999px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.88),transparent);filter:blur(4px);opacity:0;pointer-events:none;z-index:4}
+.stage-shell.reveal-mode .sweep{animation:sweepLight 1.1s ease-out forwards}
+@keyframes sweepLight{0%{transform:translateX(-40%);opacity:0}30%{opacity:1}100%{transform:translateX(160%);opacity:0}}
+
+/* Stage head */
+.stage-head{
+  display:flex;justify-content:space-between;align-items:flex-start;gap:var(--space-4);
+  padding:var(--space-4) var(--space-6) var(--space-3);position:relative;z-index:5
+}
+.stage-label{font-size:var(--text-xs);letter-spacing:.18em;text-transform:uppercase;color:var(--color-text-faint);margin-bottom:.25rem}
+.stage-title{font-family:var(--font-display);font-size:1.35rem;letter-spacing:-.03em}
+.stage-sub{font-size:var(--text-sm);color:var(--color-text-muted);margin-top:.25rem}
+.meta-box{padding:var(--space-4);border-radius:20px;border:1px solid color-mix(in srgb,var(--color-text) 10%,transparent);background:color-mix(in srgb,var(--color-surface-2) 88%,transparent)}
+.meta-k{display:block;font-size:var(--text-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--color-text-faint);margin-bottom:.35rem}
+.meta-v{font-weight:650}
+
+/* ── CANVAS STAGE ── */
+.canvas-wrap{position:relative;z-index:3}
+#lobby-canvas{display:block;width:100%}
+
+/* Invisible click targets over each door */
+.door-hits{position:absolute;top:0;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(4,1fr);z-index:10;pointer-events:none}
+.door-hit{pointer-events:all;cursor:pointer;transition:background .15s}
+.door-hit:hover{background:rgba(226,178,77,.05)}
+.door-hit.selected{background:rgba(226,178,77,.07);box-shadow:inset 0 0 0 2px rgba(226,178,77,.5)}
+
+/* Stage footer — 4 meta boxes */
+.stage-footer{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1px solid color-mix(in srgb,var(--color-text) 8%,transparent);
+  position:relative;z-index:5
+}
+.stage-footer .meta-box{padding:var(--space-4);}
+
+/* ── SIDEBAR ── */
+.sidebar{display:flex;flex-direction:column;gap:var(--space-4)}
+.card{
+  padding:var(--space-5);border-radius:24px;box-shadow:var(--shadow-md);
+  background:linear-gradient(180deg,color-mix(in srgb,var(--color-surface-2) 95%,transparent),color-mix(in srgb,var(--color-surface) 96%,transparent))
+}
+.card h3{font-family:var(--font-display);font-size:1.28rem;letter-spacing:-.03em;margin-bottom:.35rem}
+.card p{font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-4)}
+.market-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-3)}
+.bet-option,.stake-chip,.primary-btn,.ghost-btn,.side-bet,.mini-kpi{
+  border:1px solid color-mix(in srgb,var(--color-text) 10%,transparent);
+  background:color-mix(in srgb,var(--color-surface-offset) 90%,transparent)
+}
+.bet-option{
+  padding:1rem;border-radius:20px;text-align:left;min-height:92px;display:flex;
+  flex-direction:column;justify-content:space-between;
+  transition:transform .28s ease,border-color .25s ease,background .25s ease,box-shadow .25s ease
+}
+.bet-option strong{font-family:var(--font-display);font-size:1.1rem;letter-spacing:-.02em}
+.bet-option span{font-size:var(--text-sm);color:var(--color-text-muted)}
+.bet-option:hover:not(:disabled),.stake-chip:hover,.side-bet:hover,.ghost-btn:hover{transform:translateY(-1px)}
+.bet-option:disabled{opacity:.38;cursor:not-allowed;transform:none}
+.bet-option.active,.stake-chip.active,.side-bet.active{
+  border-color:color-mix(in srgb,var(--color-primary) 60%,transparent);
+  background:linear-gradient(180deg,color-mix(in srgb,var(--color-primary) 16%,var(--color-surface-offset)),color-mix(in srgb,var(--color-surface-offset) 96%,transparent));
+  box-shadow:0 0 0 1px color-mix(in srgb,var(--color-primary) 26%,transparent) inset
+}
+.side-bet{padding:1rem;border-radius:20px;display:flex;justify-content:space-between;gap:var(--space-3);align-items:center}
+.side-bet:disabled{opacity:.38;cursor:not-allowed;transform:none}
+.toggle{display:flex;align-items:center;gap:.6rem}
+.toggle-dot{width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,.16);transition:all .25s ease}
+.side-bet.active .toggle-dot{background:var(--color-gold-2);box-shadow:0 0 18px rgba(226,178,77,.46)}
+.stake-row{display:flex;gap:var(--space-3);flex-wrap:wrap}
+.stake-chip{padding:.82rem 1rem;border-radius:999px;min-width:62px}
+.action-row{display:flex;gap:var(--space-3);margin-top:var(--space-4)}
+.primary-btn,.ghost-btn{padding:1rem 1.15rem;border-radius:18px;font-weight:800}
+.primary-btn{
+  flex:1;color:var(--color-text-inverse);
+  background:linear-gradient(180deg,var(--color-primary),color-mix(in srgb,var(--color-primary-hover) 92%,black));
+  box-shadow:0 16px 28px rgba(12,107,115,.24)
+}
+.primary-btn:disabled{opacity:.46;cursor:not-allowed;box-shadow:none}
+.ghost-btn{min-width:128px}
+.result-banner{display:none;flex-direction:column;gap:var(--space-3);padding:var(--space-5);border-radius:24px;box-shadow:var(--shadow-md)}
+.result-banner.show{display:flex}
+.result-banner.win{border-color:color-mix(in srgb,var(--color-success) 40%,transparent);background:linear-gradient(180deg,color-mix(in srgb,var(--color-success) 10%,var(--color-surface)),color-mix(in srgb,var(--color-surface) 94%,transparent))}
+.result-banner.loss{border-color:color-mix(in srgb,var(--color-error) 34%,transparent);background:linear-gradient(180deg,color-mix(in srgb,var(--color-error) 9%,var(--color-surface)),color-mix(in srgb,var(--color-surface) 94%,transparent))}
+.result-banner.premium-win{border-color:color-mix(in srgb,var(--color-gold-2) 46%,transparent);background:linear-gradient(180deg,color-mix(in srgb,var(--color-gold-2) 14%,var(--color-surface)),color-mix(in srgb,var(--color-surface) 94%,transparent))}
+.result-label{font-size:var(--text-xs);letter-spacing:.16em;text-transform:uppercase;color:var(--color-text-faint)}
+.result-title{font-family:var(--font-display);font-size:1.55rem;letter-spacing:-.03em}
+.result-sub{color:var(--color-text-muted)}
+.result-amount{font-size:1.25rem;font-weight:800}
+.result-actions{display:flex;gap:var(--space-3);align-items:center;flex-wrap:wrap}
+.ghost-btn.sm{padding:.72rem 1rem;min-width:auto;font-size:var(--text-sm)}
+.next-cue{font-size:var(--text-xs);color:var(--color-text-faint)}
+.ticker{padding:var(--space-4);border-radius:22px;overflow:hidden}
+.ticker-head{display:flex;justify-content:space-between;align-items:center;gap:var(--space-3);margin-bottom:var(--space-3)}
+.history-row{display:flex;gap:var(--space-3);flex-wrap:wrap}
+.history-chip{min-width:54px;padding:.72rem .95rem;border-radius:999px;border:1px solid color-mix(in srgb,var(--color-text) 10%,transparent);background:color-mix(in srgb,var(--color-surface-offset) 92%,transparent);text-align:center;font-weight:800;box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}
+.history-chip.premium{color:var(--color-gold-2);border-color:color-mix(in srgb,var(--color-gold-2) 42%,transparent)}
+.tiny{font-size:var(--text-xs);color:var(--color-text-faint)}
+.sr-live{position:absolute;left:-9999px}
+
+@keyframes balFlashWin  { 0%,100%{color:inherit} 30%{color:var(--color-success);font-weight:800} }
+@keyframes balFlashLose { 0%,100%{color:inherit} 30%{color:var(--color-error);font-weight:800} }
+.bal-flash-win  { animation: balFlashWin  1.2s ease; }
+.bal-flash-lose { animation: balFlashLose 1.2s ease; }
+.bet-option.prem-door { border-color:color-mix(in srgb,var(--color-gold-2) 55%,transparent); background:linear-gradient(180deg,color-mix(in srgb,var(--color-gold-2) 8%,var(--color-surface-offset)),color-mix(in srgb,var(--color-surface-offset) 96%,transparent)); }
+.bet-option.prem-door strong::after { content:' ★'; color:var(--color-gold-2); font-size:.85em; }
+.occ-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:var(--space-2); margin-bottom:var(--space-3); }
+.occ-btn { padding:.6rem .4rem; border-radius:var(--radius-lg); border:1px solid color-mix(in srgb,var(--color-text) 10%,transparent); background:color-mix(in srgb,var(--color-surface-offset) 90%,transparent); font-family:var(--font-display); font-size:1.1rem; font-weight:700; text-align:center; cursor:pointer; transition:all .2s; display:flex; flex-direction:column; align-items:center; gap:2px; }
+.occ-btn span { font-size:var(--text-xs); color:var(--color-text-faint); font-family:var(--font-body); font-weight:400; }
+.occ-btn:hover:not(:disabled) { transform:translateY(-1px); }
+.occ-btn:disabled { opacity:.38; cursor:not-allowed; }
+.occ-btn.active { border-color:color-mix(in srgb,var(--color-primary) 60%,transparent); background:linear-gradient(180deg,color-mix(in srgb,var(--color-primary) 16%,var(--color-surface-offset)),color-mix(in srgb,var(--color-surface-offset) 96%,transparent)); box-shadow:0 0 0 1px color-mix(in srgb,var(--color-primary) 26%,transparent) inset; }
+.ou-grid { display:grid; grid-template-columns:1fr 1fr; gap:var(--space-2); }
+.ou-btn { padding:.75rem; border-radius:var(--radius-lg); border:1px solid color-mix(in srgb,var(--color-text) 10%,transparent); background:color-mix(in srgb,var(--color-surface-offset) 90%,transparent); font-weight:700; text-align:center; cursor:pointer; transition:all .2s; display:flex; flex-direction:column; align-items:center; gap:2px; }
+.ou-btn:hover:not(:disabled) { transform:translateY(-1px); }
+.ou-btn:disabled { opacity:.38; cursor:not-allowed; }
+.ou-btn.active { border-color:color-mix(in srgb,var(--color-primary) 60%,transparent); background:linear-gradient(180deg,color-mix(in srgb,var(--color-primary) 16%,var(--color-surface-offset)),color-mix(in srgb,var(--color-surface-offset) 96%,transparent)); box-shadow:0 0 0 1px color-mix(in srgb,var(--color-primary) 26%,transparent) inset; }
+.ou-btn span { font-size:var(--text-xs); color:var(--color-text-faint); font-weight:400; }
+.stops-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:var(--space-2); margin-bottom:var(--space-3); }
+.stops-btn { padding:.75rem .4rem; border-radius:var(--radius-lg); border:1px solid color-mix(in srgb,var(--color-text) 10%,transparent); background:color-mix(in srgb,var(--color-surface-offset) 90%,transparent); font-family:var(--font-display); font-size:1.05rem; font-weight:700; text-align:center; cursor:pointer; transition:all .2s; display:flex; flex-direction:column; align-items:center; gap:2px; }
+.stops-btn span { font-size:var(--text-xs); color:var(--color-text-faint); font-family:var(--font-body); font-weight:400; }
+.stops-btn:hover:not(:disabled) { transform:translateY(-1px); }
+.stops-btn:disabled { opacity:.38; cursor:not-allowed; }
+.stops-btn.active { border-color:color-mix(in srgb,var(--color-primary) 60%,transparent); background:linear-gradient(180deg,color-mix(in srgb,var(--color-primary) 16%,var(--color-surface-offset)),color-mix(in srgb,var(--color-surface-offset) 96%,transparent)); box-shadow:0 0 0 1px color-mix(in srgb,var(--color-primary) 26%,transparent) inset; }
+.floor-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:var(--space-2); margin-bottom:var(--space-3); }
+.floor-btn { padding:.75rem .4rem; border-radius:var(--radius-lg); border:1px solid color-mix(in srgb,var(--color-text) 10%,transparent); background:color-mix(in srgb,var(--color-surface-offset) 90%,transparent); font-family:var(--font-display); font-size:1.05rem; font-weight:700; text-align:center; cursor:pointer; transition:all .2s; display:flex; flex-direction:column; align-items:center; gap:2px; }
+.floor-btn span { font-size:var(--text-xs); color:var(--color-text-faint); font-family:var(--font-body); font-weight:400; }
+.floor-btn:hover:not(:disabled) { transform:translateY(-1px); }
+.floor-btn:disabled { opacity:.38; cursor:not-allowed; }
+.floor-btn.active { border-color:color-mix(in srgb,var(--color-primary) 60%,transparent); background:linear-gradient(180deg,color-mix(in srgb,var(--color-primary) 16%,var(--color-surface-offset)),color-mix(in srgb,var(--color-surface-offset) 96%,transparent)); box-shadow:0 0 0 1px color-mix(in srgb,var(--color-primary) 26%,transparent) inset; }
+@media(max-width:1100px){
+  .layout{grid-template-columns:1fr}
+  .hero-stats,.mini-grid{grid-template-columns:1fr 1fr}
+  .sidebar{order:2}
+}
+
+@media(max-width:700px){
+  /* Header — compact */
+  .app{padding:.75rem .75rem 6rem}
+  .header-shell{
+    position:sticky;top:8px;padding:.6rem 1rem;
+    flex-wrap:nowrap;gap:.5rem;border-radius:16px;
+  }
+  .brand{gap:.6rem}
+  .logo{width:40px;height:40px;border-radius:12px}
+  .logo svg{width:20px;height:20px}
+  .eyebrow{font-size:9px}
+  h1{font-size:1.1rem;letter-spacing:-.03em}
+  .sub{display:none}
+  .top-meta{gap:.4rem}
+  .timer{min-width:64px;padding:.5rem .6rem;font-size:.85rem;border-radius:12px}
+  .icon-btn{width:36px;height:36px;border-radius:10px;font-size:13px}
+
+  /* Layout — single column, stage first */
+  .layout{grid-template-columns:1fr;gap:.75rem}
+  .sidebar{order:2}
+
+  /* Stage — taller canvas on mobile */
+  .stage-shell{border-radius:20px}
+  .stage-head{padding:.75rem 1rem .5rem;flex-direction:column;gap:.35rem}
+  .stage-head .meta-box{display:none} /* hide pitch line box */
+  .stage-title{font-size:1rem}
+  .stage-sub{font-size:.75rem}
+
+  /* Stage footer — 2 cols on mobile */
+  .stage-footer{grid-template-columns:1fr 1fr}
+  .stage-footer .meta-box{padding:.6rem .75rem}
+  .meta-k{font-size:9px}
+  .meta-v{font-size:.8rem}
+
+  /* Odds strip — 2x2 on mobile */
+  #odds-strip-mobile{display:grid;grid-template-columns:1fr 1fr}
+
+  /* Cards — tighter */
+  .card{padding:.875rem;border-radius:18px}
+  .card h3{font-size:1rem}
+  .card p{font-size:.8rem;margin-bottom:.625rem}
+
+  /* Bet option grid — 2x2 stays */
+  .market-grid{gap:.5rem}
+  .bet-option{min-height:72px;padding:.75rem;border-radius:14px}
+  .bet-option strong{font-size:.95rem}
+
+  /* Occupant grid stays 5-col but smaller */
+  .occ-btn{padding:.45rem .2rem;font-size:.95rem}
+  .ou-btn{padding:.6rem .5rem;font-size:.85rem}
+  .stops-btn,.floor-btn{padding:.55rem .3rem;font-size:.9rem}
+
+  /* Side bet */
+  .side-bet{padding:.75rem;border-radius:14px}
+
+  /* Stake row */
+  .stake-row{gap:.4rem}
+  .stake-chip{padding:.6rem .75rem;min-width:52px;font-size:.8rem}
+
+  /* Action row — sticky at bottom */
+  .action-row{
+    position:fixed;bottom:0;left:0;right:0;
+    padding:.75rem 1rem;margin:0;
+    background:color-mix(in srgb,var(--color-bg) 94%,transparent);
+    backdrop-filter:blur(16px);
+    border-top:1px solid color-mix(in srgb,var(--color-text) 8%,transparent);
+    z-index:50;gap:.5rem;
+  }
+  .primary-btn{padding:.85rem;border-radius:14px;font-size:.9rem}
+  .ghost-btn{min-width:90px;padding:.85rem .75rem;border-radius:14px;font-size:.85rem}
+
+  /* Result banner */
+  .result-banner{border-radius:16px;padding:.875rem}
+  .result-title{font-size:1.2rem}
+  .result-amount{font-size:1rem}
+
+  /* Ticker */
+  .ticker{border-radius:16px;padding:.75rem}
+  .history-chip{padding:.55rem .7rem;min-width:42px;font-size:.85rem}
+
+  /* Hide lift behaviour card on mobile — show it */
+  #liftBehaviourCard{display:block}
+}
+
+@media(max-width:400px){
+  h1{font-size:1rem}
+  .market-grid{grid-template-columns:1fr 1fr}
+  .bet-option{min-height:64px}
+  .occ-btn{font-size:.8rem}
+}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- ── HEADER ── -->
+<header class="header-shell">
+  <div class="brand">
+    <div class="logo" aria-hidden="true">
+      <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="10" y="8" width="44" height="48" rx="10"/>
+        <line x1="32" y1="8" x2="32" y2="56"/>
+        <polyline points="22,26 32,16 42,26"/>
+        <polyline points="22,38 32,48 42,38"/>
+      </svg>
+    </div>
+    <div>
+      <div class="eyebrow">INVESTOR DEMO</div>
+      <h1>The Opening</h1>
+      <p class="sub">A simple betting game based on the suspense of lift doors opening.</p>
+    </div>
+  </div>
+  <div class="top-meta">
+    <span class="pill open" id="statusPill">Betting Open</span>
+    <div class="timer" id="timerDisplay">8.0s</div>
+    <button class="icon-btn" id="soundToggle" aria-label="Toggle sound">🔊</button>
+    <button class="icon-btn" id="themeToggle" aria-label="Switch theme">◐</button>
+  </div>
+</header>
+
+<!-- ── MAIN LAYOUT ── -->
+<main class="layout">
+
+  <!-- STAGE -->
+  <section class="stage-shell" id="stageShell">
+    <div class="dramatic-overlay"></div>
+    <div class="sweep"></div>
+
+    <div class="stage-head">
+      <div>
+        <div class="stage-label">Main stage</div>
+        <div class="stage-title" id="roundLabel">Round 0001</div>
+        <div class="stage-sub" id="stageHint">Doors armed. Place your demo ticket before lock.</div>
+      </div>
+    </div>
+
+    <!-- CANVAS -->
+    <div class="canvas-wrap" id="canvasWrap">
+      <canvas id="lobbyCanvas"></canvas>
+      <div class="door-hits" id="doorHits">
+        <div class="door-hit" id="dh-a" data-door="A"></div>
+        <div class="door-hit" id="dh-b" data-door="B"></div>
+        <div class="door-hit" id="dh-c" data-door="C"></div>
+        <div class="door-hit" id="dh-d" data-door="D"></div>
+      </div>
+    </div>
+
+    <!-- ODDS STRIP -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid color-mix(in srgb,var(--color-text) 8%,transparent);position:relative;z-index:5">
+      <div style="padding:.75rem 1rem;border-right:1px solid color-mix(in srgb,var(--color-text) 7%,transparent);cursor:pointer;transition:background .15s" onclick="selectDoor('A')" id="odds-cell-A">
+        <span class="meta-k">Door A</span>
+        <span class="meta-v" id="sfc-odds-A">3.6×</span>
+        <span style="display:none;font-size:var(--text-xs);color:var(--color-gold-2);font-weight:700;margin-left:.4rem" id="sfc-prem-A">★ Prem</span>
+      </div>
+      <div style="padding:.75rem 1rem;border-right:1px solid color-mix(in srgb,var(--color-text) 7%,transparent);cursor:pointer;transition:background .15s" onclick="selectDoor('B')" id="odds-cell-B">
+        <span class="meta-k">Door B</span>
+        <span class="meta-v" id="sfc-odds-B">3.6×</span>
+        <span style="display:none;font-size:var(--text-xs);color:var(--color-gold-2);font-weight:700;margin-left:.4rem" id="sfc-prem-B">★ Prem</span>
+      </div>
+      <div style="padding:.75rem 1rem;border-right:1px solid color-mix(in srgb,var(--color-text) 7%,transparent);cursor:pointer;transition:background .15s" onclick="selectDoor('C')" id="odds-cell-C">
+        <span class="meta-k">Door C</span>
+        <span class="meta-v" id="sfc-odds-C">3.6×</span>
+        <span style="display:none;font-size:var(--text-xs);color:var(--color-gold-2);font-weight:700;margin-left:.4rem" id="sfc-prem-C">★ Prem</span>
+      </div>
+      <div style="padding:.75rem 1rem;cursor:pointer;transition:background .15s" onclick="selectDoor('D')" id="odds-cell-D">
+        <span class="meta-k">Door D</span>
+        <span class="meta-v" id="sfc-odds-D">3.6×</span>
+        <span style="display:none;font-size:var(--text-xs);color:var(--color-gold-2);font-weight:700;margin-left:.4rem" id="sfc-prem-D">★ Prem</span>
+      </div>
+    </div>
+    <div class="stage-footer">
+      <div class="meta-box" style="border-radius:0;border:none;border-right:1px solid color-mix(in srgb,var(--color-text) 8%,transparent)">
+        <span class="meta-k">Selected ticket</span>
+        <span class="meta-v" id="selectionMeta">No door selected</span>
+      </div>
+      <div class="meta-box" style="border-radius:0;border:none;border-right:1px solid color-mix(in srgb,var(--color-text) 8%,transparent)">
+        <span class="meta-k">Premium Door</span>
+        <span class="meta-v" id="premMetaBox">Door —</span>
+      </div>
+      <div class="meta-box" style="border-radius:0;border:none;border-right:1px solid color-mix(in srgb,var(--color-text) 8%,transparent)">
+        <span class="meta-k" id="liftStatusLabel">Stake</span>
+        <span class="meta-v" id="stageStakeMeta">£2</span>
+      </div>
+      <div class="meta-box" style="border-radius:0;border:none">
+        <span class="meta-k">Balance</span>
+        <span class="meta-v" id="stageTicketMeta">£500.00</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <section class="card">
+      <h3>Next Door to Open</h3>
+      <div class="market-grid" id="betOptions">
+        <button class="bet-option" data-select-door="A"><strong>Door A</strong><span id="bo-odds-A">3.6× return</span></button>
+        <button class="bet-option" data-select-door="B"><strong>Door B</strong><span id="bo-odds-B">3.6× return</span></button>
+        <button class="bet-option" data-select-door="C"><strong>Door C</strong><span id="bo-odds-C">3.6× return</span></button>
+        <button class="bet-option" data-select-door="D"><strong>Door D</strong><span id="bo-odds-D">3.6× return</span></button>
+      </div>
+    </section>
+
+    <section class="ticker">
+      <div class="ticker-head">
+        <span style="font-weight:700;font-family:var(--font-display)">Last rounds</span>
+        <span class="tiny" id="balanceMeta">Balance: £500.00</span>
+      </div>
+      <div class="history-row" id="historyRow"></div>
+    </section>
+
+    <section class="card">
+      <h3>Premium Side Layer</h3>
+      <p>One lift is randomly assigned as the Premium (VIP) lift each round. If it opens first, the bet wins.</p>
+      <button class="side-bet" id="premiumToggle" aria-pressed="false">
+        <div>
+          <strong>Premium door hit</strong>
+          <div class="tiny" id="premToggleDesc">Door — · 1.8× return</div>
+        </div>
+        <div class="toggle"><span class="tiny">Add</span><span class="toggle-dot"></span></div>
+      </button>
+      <div style="height:1rem"></div>
+      <h3>Occupants</h3>
+      <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-3)">How many people step out of the winning door?</p>
+
+      <div class="tiny" style="margin-bottom:var(--space-2);letter-spacing:.1em;text-transform:uppercase;color:var(--color-text-faint)">Exact number · 4.0×</div>
+      <div class="occ-grid" id="occGrid">
+        <button class="occ-btn" data-occ="1">1<span>4.0×</span></button>
+        <button class="occ-btn" data-occ="2">2<span>4.0×</span></button>
+        <button class="occ-btn" data-occ="3">3<span>4.0×</span></button>
+        <button class="occ-btn" data-occ="4">4<span>4.0×</span></button>
+        <button class="occ-btn" data-occ="5">5<span>4.0×</span></button>
+      </div>
+
+      <div class="tiny" style="margin-bottom:var(--space-2);letter-spacing:.1em;text-transform:uppercase;color:var(--color-text-faint)">Over / Under 3 · 1.9×</div>
+      <div class="ou-grid" id="ouGrid">
+        <button class="ou-btn" data-ou="under">Under 3<span>1–2 people · 1.9×</span></button>
+        <button class="ou-btn" data-ou="over">Over 3<span>4–5 people · 1.9×</span></button>
+      </div>
+
+      <div style="height:1rem"></div>
+      <p>Simple demo chips for pitch presentation.</p>
+      <div class="stake-row" id="stakeRow">
+        <button class="stake-chip" data-stake="1">£1</button>
+        <button class="stake-chip active" data-stake="2">£2</button>
+        <button class="stake-chip" data-stake="5">£5</button>
+        <button class="stake-chip" data-stake="10">£10</button>
+      </div>
+      <div class="action-row">
+        <button class="primary-btn" id="placeBetBtn">Place Demo Bet</button>
+        <button class="ghost-btn" id="quickPickBtn">Quick Pick</button>
+      </div>
+    </section>
+
+    <section class="card" id="liftBehaviourCard">
+      <h3>Lift Behaviour</h3>
+      <p>Predict how the <strong>winning lift</strong> travels to the lobby — its journey, not its speed. An express lift makes no stops, but another lift may still open first.</p>
+
+      <div class="tiny" style="margin-bottom:var(--space-2);letter-spacing:.1em;text-transform:uppercase;color:var(--color-text-faint)">Winner's journey · Number of stops · 3.0×</div>
+      <div class="stops-grid" id="stopsGrid">
+        <button class="stops-btn" data-stops="0">0<span>Express · 3.0×</span></button>
+        <button class="stops-btn" data-stops="1">1<span>One stop · 3.0×</span></button>
+        <button class="stops-btn" data-stops="2">2+<span>Multi-stop · 3.0×</span></button>
+      </div>
+
+      <div class="tiny" style="margin-bottom:var(--space-2);letter-spacing:.1em;text-transform:uppercase;color:var(--color-text-faint)">Winner's journey · Floor of first stop · 3.0×</div>
+      <div class="floor-grid" id="floorGrid">
+        <button class="floor-btn" data-floor="1">F1<span>Low · 3.0×</span></button>
+        <button class="floor-btn" data-floor="2">F2<span>Mid · 3.0×</span></button>
+        <button class="floor-btn" data-floor="3">F3<span>High · 3.0×</span></button>
+      </div>
+
+      <div class="tiny" style="margin-bottom:var(--space-2);letter-spacing:.1em;text-transform:uppercase;color:var(--color-text-faint)">Winner's journey · Express · 2.5×</div>
+      <button class="side-bet" id="expressToggle" aria-pressed="false">
+        <div>
+          <strong>No stops at all</strong>
+          <div class="tiny">Winning lift came straight through · 2.5× return</div>
+        </div>
+        <div class="toggle"><span class="tiny">Add</span><span class="toggle-dot"></span></div>
+      </button>
+    </section>
+
+    <section class="result-banner" id="resultBanner" aria-live="polite">
+      <div class="result-label">Round result</div>
+      <div class="result-title" id="resultTitle">Door — opened first</div>
+      <div class="result-sub" id="resultSub"></div>
+      <div class="result-amount" id="resultAmount"></div>
+      <div class="result-actions">
+        <button class="ghost-btn sm" id="replayBtn">⏪ Replay</button>
+        <span class="next-cue" id="nextCue"></span>
+      </div>
+    </section>
+
+  </aside>
+</main>
+</div>
+<div class="sr-live" id="liveRegion" aria-live="assertive"></div>
+
+<script>
+// ── CANVAS SETUP ──────────────────────────────────────────────────────────
+const canvas = document.getElementById('lobbyCanvas');
+const ctx    = canvas.getContext('2d');
+const DPR    = window.devicePixelRatio || 1;
+let CW = 800, CH = 480;
+
+function resizeCanvas() {
+  const w = Math.max(300, canvas.parentElement.clientWidth);
+  CW = w;
+  const isMobile = window.innerWidth <= 700;
+  CH = Math.round(w * (isMobile ? 0.65 : 0.56));
+  canvas.width  = CW * DPR; canvas.height = CH * DPR;
+  canvas.style.width = CW + 'px'; canvas.style.height = CH + 'px';
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  document.getElementById('doorHits').style.height = CH + 'px';
+}
+window.addEventListener('resize', () => { resizeCanvas(); drawLobby(); });
+resizeCanvas();
+
+// ── DOOR VISUAL STATE ─────────────────────────────────────────────────────
+const DOOR_KEYS = ['A','B','C','D'];
+let openAmt     = {A:0,B:0,C:0,D:0};
+let animTarget  = {A:0,B:0,C:0,D:0};
+let lightState  = {A:'idle',B:'idle',C:'idle',D:'idle'};
+let floorNum    = {A:'—',B:'—',C:'—',D:'—'};
+let selKey      = null;
+let winKey      = null;
+
+// ── DOOR GEOMETRY ─────────────────────────────────────────────────────────
+function doorGeom(i) {
+  const PAD = CW * 0.022, GAP = CW * 0.014;
+  const dw  = (CW - PAD*2 - GAP*3) / 4;
+  const x   = PAD + i*(dw+GAP);
+  const FIH = 30, TLH = 8, TOP = 42;
+  const y   = TOP + FIH + TLH;
+  const h   = CH - y - 10;
+  return {x, y, w:dw, h, FIH, TLH, TOP};
+}
+
+// ── DRAW ──────────────────────────────────────────────────────────────────
+function isDark() { return document.documentElement.getAttribute('data-theme') === 'dark'; }
+
+function drawLobby() {
+  ctx.clearRect(0,0,CW,CH);
+  const dark = isDark();
+
+  // Back wall — dark rich marble in both modes (lobbies are always dark, dramatic)
+  const wg = ctx.createLinearGradient(0,0,0,CH);
+  wg.addColorStop(0, dark?'#0f0c09':'#2c2820');
+  wg.addColorStop(0.5, dark?'#0b0906':'#241e18');
+  wg.addColorStop(1, dark?'#080605':'#1e1914');
+  ctx.fillStyle = wg; ctx.fillRect(0,0,CW,CH);
+
+  // Marble veins — same intensity both modes
+  ctx.save(); ctx.globalAlpha = 0.04;
+  for(let i=-CH;i<CW+CH;i+=44){
+    ctx.strokeStyle='#c9a84c'; ctx.lineWidth=0.5;
+    ctx.beginPath(); ctx.moveTo(i,0); ctx.lineTo(i+CH*0.6,CH); ctx.stroke();
+  }
+  ctx.restore();
+
+  drawCornice(dark);
+  DOOR_KEYS.forEach((d,i) => drawDoor(d,i,dark));
+  drawFloorGlow(dark);
+
+  // Round label
+  ctx.fillStyle = 'rgba(232,210,140,.72)';
+  ctx.font = `${Math.max(9,Math.round(CW*.011))}px 'Courier New',monospace`;
+  ctx.textAlign = 'center';
+  ctx.fillText('— THE OPENING · ' + (state.roundNumStr||'ROUND —') + ' —', CW/2, 24);
+
+  // Floor context — right-aligned
+  ctx.fillStyle='rgba(232,210,140,.62)';
+  ctx.font=`${Math.max(8,Math.round(CW*.010))}px 'Courier New',monospace`;
+  ctx.textAlign='right';
+  ctx.fillText('LOBBY · FLOORS 1–3', CW * 0.83, 24);
+  ctx.textAlign='left';
+}
+
+// Gold colour constants (shared across draw functions)
+const G='#c9a84c', G2='#a8863a', G3='#e8c870', GD='#6b5520';
+
+function drawCornice(dark) {
+  const h=40;
+  const cg=ctx.createLinearGradient(0,0,0,h);
+  cg.addColorStop(0,'#1e180e'); cg.addColorStop(1,'#120f09');
+  ctx.fillStyle=cg; ctx.fillRect(0,0,CW,h);
+  // gold rail
+  const rg=ctx.createLinearGradient(0,0,CW,0);
+  rg.addColorStop(0,'transparent');rg.addColorStop(.08,G2);rg.addColorStop(.5,G3);rg.addColorStop(.92,G2);rg.addColorStop(1,'transparent');
+  ctx.fillStyle=rg; ctx.fillRect(0,0,CW,2);
+  const rg2=ctx.createLinearGradient(0,0,CW,0);
+  rg2.addColorStop(0,'transparent');rg2.addColorStop(.1,GD);rg2.addColorStop(.5,G2);rg2.addColorStop(.9,GD);rg2.addColorStop(1,'transparent');
+  ctx.fillStyle=rg2; ctx.fillRect(0,h-1,CW,1);
+  [CW*.1,CW*.9].forEach(rx=>{
+    ctx.save();ctx.globalAlpha=.45;ctx.strokeStyle=G2;ctx.lineWidth=.5;
+    ctx.beginPath();ctx.arc(rx,h/2,9,0,Math.PI*2);ctx.stroke();
+    ctx.beginPath();ctx.arc(rx,h/2,4,0,Math.PI*2);ctx.stroke();ctx.restore();
+  });
+}
+
+function drawFloorGlow(dark) {
+  const fg=ctx.createLinearGradient(0,CH*.85,0,CH);
+  fg.addColorStop(0,'transparent'); fg.addColorStop(1,dark?'rgba(201,168,76,.03)':'rgba(160,120,30,.04)');
+  ctx.fillStyle=fg; ctx.fillRect(0,CH*.85,CW,CH*.15);
+}
+
+function drawSilhouettes(g, count, vis) {
+  const floorY  = g.y + g.h * 0.92;
+  const maxFigH = Math.min(g.h * 0.88, g.w * 0.9);
+  // Scale figures down when more people so they don't overlap
+  const figH    = count >= 4 ? maxFigH * (1 - (count - 3) * 0.12) : maxFigH;
+  const spacing = g.w / (count + 1);
+  const alpha   = Math.min(1, (vis - 0.35) * 3.0);
+  if(alpha <= 0) return;
+
+  const TYPES = ['business','guest','concierge','vip','business'];
+
+  ctx.save();
+  ctx.beginPath(); ctx.rect(g.x, g.y - 10, g.w, g.h + 10); ctx.clip();
+
+  for(let i = 0; i < count; i++){
+    const cx   = g.x + spacing * (i + 1);
+    const type = TYPES[i % TYPES.length];
+    const s    = figH / 160; // scale factor — figure drawn in 160-unit space
+    const ay   = floorY;     // anchor Y = floor
+
+    ctx.save();
+    ctx.translate(cx, ay);
+    ctx.scale(s, s);
+
+    // ── Palette per type ─────────────────────────────────────────
+    const skin   = type==='vip' ? [210,170,120] : type==='concierge' ? [160,110,75] : [195,145,100];
+    const hair   = type==='vip' ? [40,30,15] : type==='concierge' ? [20,15,10] : [60,40,20];
+    const suit   = type==='vip'       ? [140,110,40]
+                 : type==='concierge' ? [15,35,15]
+                 : type==='guest'     ? [60,45,30]
+                 :                     [25,30,55]; // business = dark navy
+    const shirt  = type==='concierge' ? [240,235,215] : [245,240,230];
+    const tie    = type==='business'  ? [140,20,20]
+                 : type==='vip'       ? [200,160,30] : null;
+    const trouser= type==='vip'       ? [120,95,30]
+                 : type==='concierge' ? [10,28,10]
+                 : type==='guest'     ? [50,38,28]
+                 :                     [20,25,50];
+
+    const sk = (r,g2,b,a=1)=>`rgba(${r},${g2},${b},${a*alpha})`;
+    const sg = (cols,a=1)=>sk(...cols,a);
+
+    // ── SHOES ─────────────────────────────────────────────────────
+    ctx.fillStyle = sk(15,12,8);
+    // left shoe
+    ctx.beginPath();
+    ctx.moveTo(-18,-4); ctx.lineTo(-6,-4);
+    ctx.quadraticCurveTo(-4,0,-6,2); ctx.lineTo(-20,2);
+    ctx.quadraticCurveTo(-22,0,-18,-4);
+    ctx.closePath(); ctx.fill();
+    // right shoe
+    ctx.beginPath();
+    ctx.moveTo(6,-4); ctx.lineTo(18,-4);
+    ctx.quadraticCurveTo(22,0,20,2); ctx.lineTo(6,2);
+    ctx.quadraticCurveTo(4,0,6,-4);
+    ctx.closePath(); ctx.fill();
+
+    // ── TROUSERS ──────────────────────────────────────────────────
+    const tg = ctx.createLinearGradient(-14,-50,14,-50);
+    tg.addColorStop(0, sg(trouser,0.85));
+    tg.addColorStop(0.5, sk(trouser[0]+20,trouser[1]+20,trouser[2]+20,0.85));
+    tg.addColorStop(1, sg(trouser,0.85));
+    ctx.fillStyle = tg;
+    // left leg
+    ctx.beginPath();
+    ctx.moveTo(-14,-52); ctx.lineTo(-5,-52);
+    ctx.lineTo(-5,-4); ctx.lineTo(-18,-4); ctx.closePath(); ctx.fill();
+    // right leg
+    ctx.beginPath();
+    ctx.moveTo(5,-52); ctx.lineTo(14,-52);
+    ctx.lineTo(18,-4); ctx.lineTo(5,-4); ctx.closePath(); ctx.fill();
+    // trouser gap/crease
+    ctx.fillStyle = sk(trouser[0]-10,trouser[1]-10,trouser[2]-10,0.4);
+    ctx.fillRect(-1,-52,2,48);
+
+    // ── JACKET / TOP BODY ─────────────────────────────────────────
+    const jg = ctx.createLinearGradient(-20,-120,20,-120);
+    jg.addColorStop(0, sg(suit,0.9));
+    jg.addColorStop(0.4, sk(suit[0]+25,suit[1]+25,suit[2]+25,0.9));
+    jg.addColorStop(1, sg(suit,0.85));
+    ctx.fillStyle = jg;
+    ctx.beginPath();
+    ctx.moveTo(-20,-52);
+    ctx.lineTo(-20,-115);
+    ctx.quadraticCurveTo(-18,-118,-14,-118);
+    ctx.lineTo(-8,-100); ctx.lineTo(0,-95); ctx.lineTo(8,-100);
+    ctx.lineTo(14,-118);
+    ctx.quadraticCurveTo(18,-118,20,-115);
+    ctx.lineTo(20,-52); ctx.closePath(); ctx.fill();
+
+    // ── SHIRT / CHEST ─────────────────────────────────────────────
+    ctx.fillStyle = sk(...shirt, 0.9);
+    ctx.beginPath();
+    ctx.moveTo(-8,-100); ctx.lineTo(0,-110); ctx.lineTo(8,-100);
+    ctx.lineTo(7,-52); ctx.lineTo(-7,-52); ctx.closePath(); ctx.fill();
+    // shirt buttons
+    ctx.fillStyle = sk(180,175,165,0.7);
+    for(let b=0;b<3;b++){
+      ctx.beginPath(); ctx.arc(0,-58-b*13,1.5,0,Math.PI*2); ctx.fill();
+    }
+
+    // ── TIE ───────────────────────────────────────────────────────
+    if(tie){
+      ctx.fillStyle = sk(...tie,0.9);
+      ctx.beginPath();
+      ctx.moveTo(-4,-100); ctx.lineTo(4,-100);
+      ctx.lineTo(6,-75); ctx.lineTo(0,-65); ctx.lineTo(-6,-75);
+      ctx.closePath(); ctx.fill();
+      // tie knot
+      ctx.fillStyle = sk(tie[0]-20,tie[1]-20,tie[2]-20,0.9);
+      ctx.beginPath(); ctx.ellipse(0,-100,4,5,0,0,Math.PI*2); ctx.fill();
+    }
+
+    // ── ARMS ──────────────────────────────────────────────────────
+    // Left arm
+    const lag = ctx.createLinearGradient(-30,-115,-25,-60);
+    lag.addColorStop(0, sg(suit,0.9)); lag.addColorStop(1, sg(suit,0.8));
+    ctx.fillStyle = lag;
+    ctx.beginPath();
+    ctx.moveTo(-20,-112); ctx.lineTo(-28,-112);
+    ctx.quadraticCurveTo(-32,-90,-30,-60);
+    ctx.lineTo(-22,-60);
+    ctx.quadraticCurveTo(-20,-85,-20,-112);
+    ctx.closePath(); ctx.fill();
+    // Right arm
+    const rag = ctx.createLinearGradient(30,-115,25,-60);
+    rag.addColorStop(0, sg(suit,0.9)); rag.addColorStop(1, sg(suit,0.8));
+    ctx.fillStyle = rag;
+    ctx.beginPath();
+    ctx.moveTo(20,-112); ctx.lineTo(28,-112);
+    ctx.quadraticCurveTo(32,-90,30,-60);
+    ctx.lineTo(22,-60);
+    ctx.quadraticCurveTo(20,-85,20,-112);
+    ctx.closePath(); ctx.fill();
+    // Shirt cuffs
+    ctx.fillStyle = sk(...shirt,0.85);
+    ctx.fillRect(-31,-64,10,6); ctx.fillRect(21,-64,10,6);
+    // Hands
+    const hg2 = ctx.createRadialGradient(-27,-55,0,-27,-55,7);
+    hg2.addColorStop(0, sk(skin[0]+20,skin[1]+15,skin[2]+10,0.95));
+    hg2.addColorStop(1, sg(skin,0.85));
+    ctx.fillStyle = hg2;
+    ctx.beginPath(); ctx.ellipse(-27,-55,6,7,-0.3,0,Math.PI*2); ctx.fill();
+    const hg3 = ctx.createRadialGradient(27,-55,0,27,-55,7);
+    hg3.addColorStop(0, sk(skin[0]+20,skin[1]+15,skin[2]+10,0.95));
+    hg3.addColorStop(1, sg(skin,0.85));
+    ctx.fillStyle = hg3;
+    ctx.beginPath(); ctx.ellipse(27,-55,6,7,0.3,0,Math.PI*2); ctx.fill();
+
+    // ── NECK ──────────────────────────────────────────────────────
+    const ng = ctx.createLinearGradient(-5,-118,5,-118);
+    ng.addColorStop(0, sg(skin,0.9));
+    ng.addColorStop(0.5, sk(skin[0]+15,skin[1]+10,skin[2]+5,0.9));
+    ng.addColorStop(1, sg(skin,0.85));
+    ctx.fillStyle = ng;
+    ctx.beginPath();
+    ctx.moveTo(-6,-118); ctx.lineTo(6,-118);
+    ctx.lineTo(5,-132); ctx.lineTo(-5,-132);
+    ctx.closePath(); ctx.fill();
+
+    // ── HEAD ──────────────────────────────────────────────────────
+    const headGrad = ctx.createRadialGradient(-4,-148,0,0,-145,18);
+    headGrad.addColorStop(0, sk(skin[0]+30,skin[1]+20,skin[2]+15,0.97));
+    headGrad.addColorStop(0.6, sk(skin[0]+10,skin[1]+8,skin[2]+5,0.95));
+    headGrad.addColorStop(1, sg(skin,0.9));
+    ctx.fillStyle = headGrad;
+    ctx.beginPath();
+    ctx.ellipse(0,-147,13,16,0,0,Math.PI*2); ctx.fill();
+
+    // ── HAIR ──────────────────────────────────────────────────────
+    const hrg = ctx.createLinearGradient(-13,-163,13,-163);
+    hrg.addColorStop(0, sg(hair,0.95));
+    hrg.addColorStop(0.5, sk(hair[0]+20,hair[1]+15,hair[2]+10,0.9));
+    hrg.addColorStop(1, sg(hair,0.95));
+    ctx.fillStyle = hrg;
+    ctx.beginPath();
+    ctx.moveTo(-13,-147);
+    ctx.quadraticCurveTo(-14,-168,0,-168);
+    ctx.quadraticCurveTo(14,-168,13,-147);
+    ctx.quadraticCurveTo(5,-155,0,-155);
+    ctx.quadraticCurveTo(-5,-155,-13,-147);
+    ctx.closePath(); ctx.fill();
+
+    // ── FACE FEATURES ─────────────────────────────────────────────
+    // Eyes (whites + iris)
+    ctx.fillStyle = sk(240,240,238,0.92);
+    ctx.beginPath(); ctx.ellipse(-5,-148,3.5,2.5,0,0,Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(5,-148,3.5,2.5,0,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle = sk(40,30,15,0.9);
+    ctx.beginPath(); ctx.ellipse(-5,-148,2,2,0,0,Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(5,-148,2,2,0,0,Math.PI*2); ctx.fill();
+    // Eye shine
+    ctx.fillStyle = sk(255,255,255,0.7);
+    ctx.beginPath(); ctx.arc(-4,-149,0.8,0,Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(6,-149,0.8,0,Math.PI*2); ctx.fill();
+    // Eyebrows
+    ctx.strokeStyle = sg(hair,0.8); ctx.lineWidth = 1.2;
+    ctx.beginPath(); ctx.moveTo(-8,-152); ctx.lineTo(-2,-151); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(2,-151); ctx.lineTo(8,-152); ctx.stroke();
+    // Nose
+    ctx.strokeStyle = sk(skin[0]-30,skin[1]-25,skin[2]-20,0.5); ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(0,-146); ctx.quadraticCurveTo(3,-143,2,-141); ctx.stroke();
+    // Mouth — smile
+    ctx.strokeStyle = sk(skin[0]-40,skin[1]-35,skin[2]-30,0.65); ctx.lineWidth=1.3;
+    ctx.beginPath(); ctx.arc(0,-138,5,0.15,Math.PI-0.15); ctx.stroke();
+    // Ear hints
+    ctx.fillStyle = sg(skin,0.75);
+    ctx.beginPath(); ctx.ellipse(-13,-147,2.5,4,0.2,0,Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(13,-147,2.5,4,-0.2,0,Math.PI*2); ctx.fill();
+
+    // ── TYPE-SPECIFIC ACCESSORIES ─────────────────────────────────
+
+    // VIP: gold crown
+    if(type==='vip'){
+      ctx.fillStyle = sk(220,180,40,0.92);
+      ctx.beginPath();
+      ctx.moveTo(-10,-165); ctx.lineTo(-10,-175);
+      ctx.lineTo(-5,-170); ctx.lineTo(0,-178);
+      ctx.lineTo(5,-170); ctx.lineTo(10,-175);
+      ctx.lineTo(10,-165); ctx.closePath(); ctx.fill();
+      // crown gems
+      ctx.fillStyle = sk(220,60,60,0.9);
+      ctx.beginPath(); ctx.arc(-5,-170,2,0,Math.PI*2); ctx.fill();
+      ctx.fillStyle = sk(60,60,220,0.9);
+      ctx.beginPath(); ctx.arc(5,-170,2,0,Math.PI*2); ctx.fill();
+      ctx.fillStyle = sk(60,200,60,0.9);
+      ctx.beginPath(); ctx.arc(0,-176,2,0,Math.PI*2); ctx.fill();
+    }
+
+    // Concierge: pillbox hat + gold band
+    if(type==='concierge'){
+      ctx.fillStyle = sg(suit,0.95);
+      ctx.fillRect(-14,-165,28,14);   // hat body
+      ctx.fillRect(-17,-167,34,4);    // brim
+      ctx.fillStyle = sk(200,170,40,0.9);
+      ctx.fillRect(-14,-158,28,3);    // gold band
+    }
+
+    // Business: briefcase in left hand
+    if(type==='business'){
+      ctx.fillStyle = sk(35,25,15,0.88);
+      ctx.beginPath();
+      ctx.roundRect(-38,-52,18,13,2); ctx.fill();
+      ctx.fillStyle = sk(55,42,25,0.7);
+      ctx.fillRect(-34,-52,10,2); // handle top
+      ctx.strokeStyle = sk(80,60,35,0.5); ctx.lineWidth=1;
+      ctx.strokeRect(-38,-52,18,13);
+      ctx.beginPath(); ctx.moveTo(-29,-52); ctx.lineTo(-29,-39); ctx.stroke(); // clasp
+    }
+
+    // Guest: shopping/hotel bag in right hand
+    if(type==='guest'){
+      ctx.fillStyle = sk(180,160,130,0.82);
+      ctx.beginPath(); ctx.roundRect(20,-52,16,18,2); ctx.fill();
+      ctx.strokeStyle = sk(140,120,90,0.6); ctx.lineWidth=0.8;
+      ctx.strokeRect(20,-52,16,18);
+      // bag handles
+      ctx.strokeStyle = sk(100,80,55,0.7); ctx.lineWidth=1.2;
+      ctx.beginPath(); ctx.moveTo(23,-52); ctx.quadraticCurveTo(23,-58,28,-58); ctx.quadraticCurveTo(33,-58,33,-52); ctx.stroke();
+    }
+
+    ctx.restore();
+  }
+  ctx.restore();
+}
+
+function drawDoor(d,i,dark) {
+  const g   = doorGeom(i);
+  const op  = openAmt[d];
+  const ls  = lightState[d];
+  const fn  = floorNum[d];
+  const sel = selKey===d;
+  const win = winKey===d;
+  const prem = d===state.premiumDoor;
+  const FW  = 8;
+  const fy  = g.y - g.TLH;
+
+  // Surround — dark marble in both modes (real hotel lobbies have dark surrounds)
+  ctx.fillStyle = dark?'#100e0a':'#2a2620';
+  ctx.fillRect(g.x-FW-2, fy-FW-2, g.w+(FW+2)*2, g.h+g.TLH+FW*2+4);
+
+  // Bevel frame — same gold in both modes
+  const sides=[
+    {x:g.x-FW,y:fy-FW,w:g.w+FW*2,h:FW, g:[G2,G3],dir:'h'},
+    {x:g.x-FW,y:g.y+g.h,w:g.w+FW*2,h:FW,g:[GD,'#3a2c10'],dir:'h'},
+    {x:g.x-FW,y:fy,w:FW,h:g.h+g.TLH,g:['#6a4c18',G2],dir:'v'},
+    {x:g.x+g.w,y:fy,w:FW,h:g.h+g.TLH,g:[G2,'#4a3010'],dir:'v'},
+  ];
+  sides.forEach(s=>{
+    const sg=s.dir==='h'?ctx.createLinearGradient(0,s.y,0,s.y+s.h):ctx.createLinearGradient(s.x,0,s.x+s.w,0);
+    sg.addColorStop(0,s.g[0]);sg.addColorStop(1,s.g[1]);
+    ctx.fillStyle=sg;ctx.fillRect(s.x,s.y,s.w,s.h);
+  });
+  [[g.x-FW,fy-FW],[g.x+g.w,fy-FW],[g.x-FW,g.y+g.h],[g.x+g.w,g.y+g.h]].forEach(([cx,cy])=>{ctx.fillStyle=G2;ctx.fillRect(cx,cy,FW,FW);});
+
+  // Cove light — stronger in light mode so it reads against lighter bg
+  let coveCol=null;
+  if(ls==='armed') coveCol=dark?'rgba(201,168,76,.1)':'rgba(201,168,76,.18)';
+  if(ls==='white') coveCol=dark?'rgba(200,210,255,.22)':'rgba(200,210,255,.35)';
+  if(ls==='winner') coveCol=dark?'rgba(201,168,76,.3)':'rgba(201,168,76,.5)';
+  if(ls==='prem')   coveCol=dark?'rgba(232,200,112,.45)':'rgba(232,200,112,.65)';
+  if(coveCol){
+    const cl=ctx.createRadialGradient(g.x+g.w/2,g.y-10,0,g.x+g.w/2,g.y+30,g.w*.8);
+    cl.addColorStop(0,coveCol);cl.addColorStop(1,'transparent');
+    ctx.fillStyle=cl;ctx.fillRect(g.x-g.w*.25,g.y-30,g.w*1.5,g.w*.5);
+  }
+
+  // Floor indicator — dark panel in both modes
+  const iy=fy-FW-g.FIH, iw=g.w;
+  ctx.fillStyle='#1a1510'; ctx.fillRect(g.x,iy,iw,g.FIH);
+  ctx.fillStyle='#0d0a07'; ctx.fillRect(g.x+4,iy+4,iw-8,g.FIH-8);
+  ctx.strokeStyle='rgba(201,168,76,.22)'; ctx.lineWidth=.5;
+  ctx.strokeRect(g.x,iy,iw,g.FIH); ctx.strokeRect(g.x+4,iy+4,iw-8,g.FIH-8);
+  const isWin=ls==='winner'||ls==='prem', isFlick=fn!=='—'&&!isWin;
+  const isExp=fn==='EXP';
+  // EXP uses smaller font to fit; floor numbers use normal size
+  ctx.font=`bold ${Math.round(g.FIH*(isExp?.38:.52))}px 'Courier New',monospace`;
+  ctx.textAlign='center';
+  if(isWin){ctx.fillStyle=G3;ctx.shadowColor=G3;ctx.shadowBlur=10;ctx.fillText('★',g.x+iw/2,iy+g.FIH*.7);ctx.shadowBlur=0;}
+  else if(isFlick && isExp){ctx.fillStyle='#4de8d4';ctx.shadowColor='#4de8d4';ctx.shadowBlur=6;ctx.fillText('EXP',g.x+iw/2,iy+g.FIH*.74);ctx.shadowBlur=0;}
+  else if(isFlick){ctx.fillStyle=prem?G:'#88c8ff';ctx.shadowColor=ctx.fillStyle;ctx.shadowBlur=6;ctx.fillText(fn,g.x+iw/2,iy+g.FIH*.72);ctx.shadowBlur=0;}
+  else{ctx.fillStyle='rgba(201,168,76,.25)';ctx.fillText('—',g.x+iw/2,iy+g.FIH*.72);}
+  ctx.textAlign='left';
+
+  // Top light bar — dark in both modes so the light effect reads clearly
+  ctx.fillStyle='#0e0c08'; ctx.fillRect(g.x,fy,g.w,g.TLH);
+  let tlCol=null;
+  if(ls==='armed') tlCol='rgba(201,168,76,.32)';
+  if(ls==='white') tlCol='rgba(210,215,255,.75)';
+  if(ls==='winner') tlCol='rgba(232,200,100,.95)';
+  if(ls==='prem')   tlCol='rgba(240,210,90,1)';
+  if(tlCol){
+    const tg=ctx.createLinearGradient(g.x,fy,g.x+g.w,fy);
+    tg.addColorStop(0,'transparent');tg.addColorStop(.15,tlCol);tg.addColorStop(.85,tlCol);tg.addColorStop(1,'transparent');
+    ctx.fillStyle=tg; ctx.fillRect(g.x,fy,g.w,g.TLH);
+    if(ls==='winner'||ls==='prem'){ctx.save();ctx.shadowColor=ls==='prem'?G3:'rgba(232,200,100,.9)';ctx.shadowBlur=20;ctx.fillRect(g.x+g.w*.15,fy,g.w*.7,g.TLH);ctx.restore();}
+  }
+  ctx.strokeStyle='rgba(201,168,76,.18)';ctx.lineWidth=.5;ctx.strokeRect(g.x,fy,g.w,g.TLH);
+
+  // Interior — same warm lobby in both modes
+  if(op>0.04){
+    const vis=Math.min(1,op*1.6);
+    const ig=ctx.createLinearGradient(0,g.y,0,g.y+g.h);
+    ig.addColorStop(0,`rgba(210,175,110,${.22*vis})`);ig.addColorStop(.4,`rgba(170,130,70,${.28*vis})`);ig.addColorStop(1,`rgba(90,60,25,${.12*vis})`);
+    ctx.fillStyle=ig;ctx.fillRect(g.x,g.y,g.w,g.h);
+    const pw=g.w/5;
+    for(let p=0;p<5;p++){
+      const px=g.x+p*pw;
+      const pg=ctx.createLinearGradient(px,0,px+pw,0);
+      pg.addColorStop(0,`rgba(170,130,60,${.07*vis})`);pg.addColorStop(.5,`rgba(210,170,90,${.14*vis})`);pg.addColorStop(1,`rgba(150,110,45,${.05*vis})`);
+      ctx.fillStyle=pg;ctx.fillRect(px,g.y,pw,g.h);
+      ctx.strokeStyle=`rgba(201,168,76,${.18*vis})`;ctx.lineWidth=.5;
+      ctx.beginPath();ctx.moveTo(px,g.y+8);ctx.lineTo(px,g.y+g.h-8);ctx.stroke();
+    }
+    const cl=ctx.createRadialGradient(g.x+g.w/2,g.y,0,g.x+g.w/2,g.y,g.w*.55);
+    cl.addColorStop(0,`rgba(255,240,200,${.3*vis})`);cl.addColorStop(1,'transparent');
+    ctx.fillStyle=cl;ctx.fillRect(g.x,g.y,g.w,g.h*.45);
+    const fl=ctx.createLinearGradient(0,g.y+g.h*.72,0,g.y+g.h);
+    fl.addColorStop(0,'transparent');fl.addColorStop(1,`rgba(201,168,76,${.12*vis})`);
+    ctx.fillStyle=fl;ctx.fillRect(g.x,g.y+g.h*.72,g.w,g.h*.28);
+
+    // Silhouette figures — only show when door is mostly open
+    if(op > 0.7 && state.occCount) {
+      drawSilhouettes(g, state.occCount, vis);
+    }
+  }
+
+  // Door panels — dark brushed metal in BOTH modes (hotel doors are always dark)
+  [[g.x,-1],[g.x+g.w/2,1]].forEach(([bx,dir],pi)=>{
+    const px=bx+dir*(g.w/2)*op, pw=g.w/2;
+    ctx.save();ctx.beginPath();ctx.rect(g.x,g.y,g.w,g.h);ctx.clip();
+    const dpg=ctx.createLinearGradient(px,0,px+pw,0);
+    if(pi===0){
+      dpg.addColorStop(0,'#181614');dpg.addColorStop(.5,'#242018');
+      dpg.addColorStop(.85,'#2e2a20');dpg.addColorStop(1,'#1c1a14');
+    } else {
+      dpg.addColorStop(0,'#1c1a14');dpg.addColorStop(.15,'#2e2a20');
+      dpg.addColorStop(.5,'#242018');dpg.addColorStop(1,'#181614');
+    }
+    ctx.fillStyle=dpg;ctx.fillRect(px,g.y,pw,g.h);
+    // Brushed grain — slightly more visible in light mode for contrast
+    ctx.globalAlpha=dark?.055:.08;
+    for(let gy2=g.y+3;gy2<g.y+g.h;gy2+=9){ctx.strokeStyle='#fff';ctx.lineWidth=.4;ctx.beginPath();ctx.moveTo(px,gy2);ctx.lineTo(px+pw,gy2);ctx.stroke();}
+    ctx.globalAlpha=1;
+    // Inset panel
+    const ins=10,ih2=g.h*.52,iy2=g.y+g.h*.16;
+    ctx.shadowColor='rgba(0,0,0,.6)';ctx.shadowBlur=6;ctx.shadowOffsetY=2;
+    ctx.fillStyle='#0c0a08';ctx.fillRect(px+ins,iy2,pw-ins*2,ih2);
+    ctx.shadowBlur=0;ctx.shadowOffsetY=0;
+    const ipg=ctx.createLinearGradient(px+ins,iy2,px+pw-ins,iy2+ih2);
+    ipg.addColorStop(0,'rgba(38,32,22,.9)');ipg.addColorStop(.5,'rgba(18,14,8,.95)');ipg.addColorStop(1,'rgba(28,22,12,.8)');
+    ctx.fillStyle=ipg;ctx.fillRect(px+ins,iy2,pw-ins*2,ih2);
+    ctx.strokeStyle='rgba(201,168,76,.15)';ctx.lineWidth=.5;ctx.strokeRect(px+ins,iy2,pw-ins*2,ih2);
+    ctx.strokeStyle='rgba(255,255,255,.06)';ctx.beginPath();ctx.moveTo(px+ins,iy2);ctx.lineTo(px+pw-ins,iy2);ctx.stroke();
+    // Gold trim bars
+    [iy2-5,iy2+ih2+4].forEach(ty=>{
+      const tg=ctx.createLinearGradient(px+4,0,px+pw-4,0);
+      tg.addColorStop(0,'transparent');tg.addColorStop(.2,GD);tg.addColorStop(.8,GD);tg.addColorStop(1,'transparent');
+      ctx.fillStyle=tg;ctx.fillRect(px+4,ty,pw-8,.8);
+    });
+    // Centre seam
+    if(pi===0){
+      const sg=ctx.createLinearGradient(px+pw-2,0,px+pw+3,0);
+      sg.addColorStop(0,'rgba(201,168,76,.25)');sg.addColorStop(.4,'rgba(201,168,76,.55)');sg.addColorStop(1,'rgba(0,0,0,.5)');
+      ctx.fillStyle=sg;ctx.fillRect(px+pw-2,g.y,5,g.h);
+    }
+    // Specular highlight
+    const spec=ctx.createLinearGradient(pi===0?px:px+pw*.65,0,pi===0?px+pw*.35:px+pw,0);
+    spec.addColorStop(0,'rgba(255,255,255,.04)');spec.addColorStop(1,'transparent');
+    ctx.fillStyle=spec;ctx.fillRect(px,g.y,pw,g.h);
+    ctx.restore();
+  });
+
+  // Selection glow
+  if(sel){
+    ctx.save();ctx.shadowColor=G;ctx.shadowBlur=24;ctx.strokeStyle=G;ctx.lineWidth=1.5;
+    ctx.strokeRect(g.x-FW-.5,fy-.5,g.w+FW*2+1,g.h+g.TLH+1);ctx.restore();
+  }
+  // Winner pulse
+  if(win&&op>.05){
+    const pulse=.55+Math.sin(Date.now()/140)*.25;
+    ctx.save();ctx.globalAlpha=pulse;ctx.shadowColor=G3;ctx.shadowBlur=50;ctx.strokeStyle=G3;ctx.lineWidth=2;
+    ctx.strokeRect(g.x-FW-1,fy-1,g.w+FW*2+2,g.h+g.TLH+2);ctx.restore();
+  }
+  // Prem badge
+  if(prem){
+    const bx=g.x+g.w,by=fy+6,bw=44,bh=16;
+    ctx.fillStyle='rgba(8,6,4,.9)';ctx.fillRect(bx-bw,by,bw,bh);
+    const bg=ctx.createLinearGradient(bx-bw,by,bx,by+bh);
+    bg.addColorStop(0,'rgba(226,178,77,.2)');bg.addColorStop(1,'rgba(226,178,77,.06)');
+    ctx.fillStyle=bg;ctx.fillRect(bx-bw,by,bw,bh);
+    ctx.strokeStyle=G2;ctx.lineWidth=.5;ctx.strokeRect(bx-bw,by,bw,bh);
+    ctx.fillStyle=G3;ctx.font=`700 8px sans-serif`;ctx.textAlign='center';
+    ctx.fillText('★ PREM',bx-bw/2,by+10.5);ctx.textAlign='left';
+  }
+}
+
+// ── ANIMATION LOOP ────────────────────────────────────────────────────────
+let animId=null;
+function animLoop(){
+  let dirty=false;
+  DOOR_KEYS.forEach(d=>{
+    const diff=animTarget[d]-openAmt[d];
+    if(Math.abs(diff)>.002){openAmt[d]+=diff*.055;dirty=true;}
+    else if(openAmt[d]!==animTarget[d]){openAmt[d]=animTarget[d];dirty=true;}
+  });
+  if(winKey&&openAmt[winKey]>.05)dirty=true;
+  if(dirty)drawLobby();
+  animId=requestAnimationFrame(animLoop);
+}
+animLoop();
+
+// Theme toggle redraws
+document.getElementById('themeToggle').addEventListener('click',()=>{
+  const root=document.documentElement;
+  root.setAttribute('data-theme',root.getAttribute('data-theme')==='dark'?'light':'dark');
+  drawLobby();
+});
+
+// ── GAME STATE ────────────────────────────────────────────────────────────
+const PREM_ROTA = ['A','B','C','D'];
+const BASE_ODDS = 3.6, PREM_ODDS_V = 4.1, PREM_HIT_ODDS = 1.8;
+const OCC_EXACT_ODDS = 4.0, OCC_OU_ODDS = 1.9;
+const STOPS_ODDS = 3.0, FLOOR_ODDS = 3.0, EXPRESS_ODDS = 2.5;
+
+const state = {
+  gameState:'betting', roundNumber:0, roundNumStr:'',
+  roundTimer:15, timerTick:null,
+  selectedDoor:null, premiumSelected:false,
+  premiumDoor:'A', premRotaIdx:0,
+  stake:2, balance:500, winningDoor:null,
+  occCount:null,        // actual occupant count this round (1-5)
+  betOccExact:null,     // player's exact number bet
+  betOccOU:null,        // player's over/under bet ('over'|'under'|null)
+  stopCount:null,       // actual stops this round (0/1/2)
+  firstStopFloor:null,  // actual first stop floor (1/2/3), null if express
+  betStops:null,        // player's stops bet (0/1/2, where 2 means 2+)
+  betFloor:null,        // player's floor bet (1/2/3)
+  betExpress:false,     // player's express toggle
+  history:[], betPlaced:false, soundOn:true,
+  revealTimeouts:[], audioCtx:null
+};
+
+function getOdds(d){return d===state.premiumDoor?PREM_ODDS_V:BASE_ODDS;}
+function formatMoney(v){return`£${v.toFixed(2)}`;}
+
+// ── AUDIO (full engine from uploaded file) ────────────────────────────────
+function ensureAudio(){
+  if(!state.soundOn)return null;
+  if(!state.audioCtx){const A=window.AudioContext||window.webkitAudioContext;if(!A)return null;state.audioCtx=new A();}
+  if(state.audioCtx.state==='suspended')state.audioCtx.resume();
+  return state.audioCtx;
+}
+function tone({freq=440,duration=.12,type='sine',gain=.03,slideTo=null,when=0}){
+  const ac=ensureAudio();if(!ac)return;
+  const now=ac.currentTime+when,osc=ac.createOscillator(),g=ac.createGain();
+  osc.type=type;osc.frequency.setValueAtTime(freq,now);
+  if(slideTo)osc.frequency.exponentialRampToValueAtTime(slideTo,now+duration);
+  g.gain.setValueAtTime(.0001,now);g.gain.exponentialRampToValueAtTime(gain,now+.01);g.gain.exponentialRampToValueAtTime(.0001,now+duration);
+  osc.connect(g).connect(ac.destination);osc.start(now);osc.stop(now+duration+.03);
+}
+function noiseBurst(duration=.18,gain=.028,band=900){
+  const ac=ensureAudio();if(!ac)return;
+  const buf=ac.createBuffer(1,ac.sampleRate*duration,ac.sampleRate),data=buf.getChannelData(0);
+  for(let i=0;i<data.length;i++)data[i]=(Math.random()*2-1)*(1-i/data.length);
+  const src=ac.createBufferSource(),filter=ac.createBiquadFilter(),g=ac.createGain();
+  src.buffer=buf;filter.type='bandpass';filter.frequency.value=band;filter.Q.value=.7;
+  const now=ac.currentTime;
+  g.gain.setValueAtTime(.0001,now);g.gain.exponentialRampToValueAtTime(gain,now+.01);g.gain.exponentialRampToValueAtTime(.0001,now+duration);
+  src.connect(filter).connect(g).connect(ac.destination);src.start(now);src.stop(now+duration+.03);
+}
+function playBetSound(){tone({freq:620,duration:.07,type:'triangle',gain:.02});tone({freq:780,duration:.08,type:'triangle',gain:.015,when:.05});}
+function playLockSound(){tone({freq:320,duration:.12,type:'square',gain:.028});noiseBurst(.08,.018,700);}
+function playFlickerSound(){tone({freq:510,duration:.06,type:'triangle',gain:.012});}
+function playDoorOpenSound(premium=false){noiseBurst(.28,.04,premium?520:380);tone({freq:180,duration:.42,type:'sawtooth',gain:.03,slideTo:110});tone({freq:premium?620:480,duration:.34,type:'triangle',gain:premium?.026:.018,when:.09,slideTo:premium?820:560});if(premium)tone({freq:940,duration:.18,type:'triangle',gain:.024,when:.22,slideTo:1160});}
+function playWinSound(premium=false){tone({freq:premium?660:520,duration:.18,type:'triangle',gain:.024});tone({freq:premium?880:660,duration:.2,type:'triangle',gain:.02,when:.12});if(premium)tone({freq:1220,duration:.24,type:'sine',gain:.018,when:.28});}
+function playLoseSound(){tone({freq:220,duration:.2,type:'sine',gain:.018,slideTo:170});}
+
+// ── UI HELPERS ────────────────────────────────────────────────────────────
+const stageShell = document.getElementById('stageShell');
+const statusPill = document.getElementById('statusPill');
+const timerDisplay = document.getElementById('timerDisplay');
+const stageHint  = document.getElementById('stageHint');
+const roundLabel = document.getElementById('roundLabel');
+const selMeta    = document.getElementById('selectionMeta');
+const placeBetBtn= document.getElementById('placeBetBtn');
+const quickPickBtn=document.getElementById('quickPickBtn');
+const premiumToggle=document.getElementById('premiumToggle');
+const resultBanner=document.getElementById('resultBanner');
+const historyRow = document.getElementById('historyRow');
+const liveRegion = document.getElementById('liveRegion');
+
+function setStatus(label,cls){
+  // Map pill class back to gameState
+  const map={open:'betting',locked:'locked',revealing:'revealing',settled:'settled'};
+  state.gameState=map[cls]||state.gameState;
+  statusPill.textContent=label;statusPill.className=`pill ${cls}`;
+}
+
+function flashBalance(won){
+  const els=[document.getElementById('balanceMeta'), document.getElementById('stageTicketMeta')];
+  els.forEach(el=>{
+    if(!el)return;
+    el.classList.remove('bal-flash-win','bal-flash-lose');
+    void el.offsetWidth; // reflow to restart animation
+    el.classList.add(won?'bal-flash-win':'bal-flash-lose');
+  });
+}
+
+function refreshOdds(){
+  DOOR_KEYS.forEach(d=>{
+    const v=getOdds(d);
+    const boel=document.getElementById('bo-odds-'+d);if(boel)boel.textContent=v.toFixed(1)+'× return';
+    const sfcel=document.getElementById('sfc-odds-'+d);if(sfcel)sfcel.textContent=v.toFixed(1)+'×';
+    const prel=document.getElementById('sfc-prem-'+d);if(prel)prel.style.display=d===state.premiumDoor?'inline':'none';
+    // Gold tint on premium door bet button
+    const btn=document.querySelector(`[data-select-door="${d}"]`);
+    if(btn){
+      btn.classList.toggle('prem-door', d===state.premiumDoor);
+    }
+  });
+  const pmb=document.getElementById('premMetaBox');if(pmb)pmb.textContent='Door '+state.premiumDoor;
+  const ptd=document.getElementById('premToggleDesc');if(ptd)ptd.textContent='Door '+state.premiumDoor+' · 1.8× return';
+}
+
+function updateMeta(){
+  // Build full selection string including occupant bets
+  const parts=[];
+  if(state.selectedDoor){
+    let main='Door '+state.selectedDoor;
+    if(state.premiumSelected) main+=' + Prem';
+    parts.push(main);
+  }
+  if(state.betOccExact!==null) parts.push(state.betOccExact+' people');
+  if(state.betOccOU==='over')  parts.push('Over 3');
+  if(state.betOccOU==='under') parts.push('Under 3');
+  if(state.betStops===0)       parts.push('0 stops');
+  if(state.betStops===1)       parts.push('1 stop');
+  if(state.betStops===2)       parts.push('2+ stops');
+  if(state.betFloor!==null)    parts.push('F'+state.betFloor+' first');
+  if(state.betExpress)         parts.push('Express');
+
+  const sel = parts.length ? parts.join(' · ') : 'No selection';
+  const sm2=document.getElementById('selectionMeta'); if(sm2)sm2.textContent=sel;
+  const tm=document.getElementById('ticketMeta');
+  if(tm)tm.textContent=state.betPlaced ? (parts.length ? parts.join(' · ') : '?') : 'None';
+  const sm=document.getElementById('stakeMeta');if(sm)sm.textContent=formatMoney(state.stake);
+  const bm=document.getElementById('balanceMeta');if(bm)bm.textContent='Balance: '+formatMoney(state.balance);
+  // Stage footer live fields
+  const ss=document.getElementById('stageStakeMeta');if(ss)ss.textContent=formatMoney(state.stake);
+  const st=document.getElementById('stageTicketMeta');if(st)st.textContent=formatMoney(state.balance);
+}
+
+function renderHistory(){
+  historyRow.innerHTML='';
+  state.history.slice(0,8).forEach(item=>{
+    const c=document.createElement('span');
+    c.className='history-chip'+(item.premium?' premium':'');
+    c.textContent=item.door+(item.premium?' ★':'');
+    historyRow.appendChild(c);
+  });
+}
+
+function lockControls(lock){
+  document.querySelectorAll('[data-select-door],[data-stake],[data-occ],[data-ou],[data-stops],[data-floor]').forEach(b=>b.disabled=lock);
+  premiumToggle.disabled=lock;
+  document.getElementById('expressToggle').disabled=lock;
+  placeBetBtn.disabled=lock||state.betPlaced;
+  quickPickBtn.disabled=lock;
+}
+
+// ── DOOR SELECTION ────────────────────────────────────────────────────────
+function selectDoor(door){
+  if(state.gameState!=='betting')return;
+  state.selectedDoor=door; selKey=door;
+  document.querySelectorAll('[data-select-door]').forEach(b=>b.classList.toggle('active',b.dataset.selectDoor===door));
+  DOOR_KEYS.forEach(d=>{
+    const dh=document.getElementById('dh-'+d.toLowerCase());if(dh)dh.className='door-hit'+(d===door?' selected':'');
+  });
+  drawLobby();updateMeta();lockControls(false);playBetSound();
+}
+
+// ── ROUND CONTROL ─────────────────────────────────────────────────────────
+function startRound(){
+  // Clear any pending reveal timeouts from previous round
+  state.revealTimeouts.forEach(clearTimeout);
+  state.revealTimeouts=[];
+
+  state.roundNumber++;
+  state.roundNumStr='ROUND '+String(state.roundNumber).padStart(4,'0');
+  state.premiumDoor=PREM_ROTA[state.premRotaIdx%4]; state.premRotaIdx++;
+  state.winningDoor=null; state.betPlaced=false;
+  state.selectedDoor=null; state.premiumSelected=false;
+  state.occCount=null; state.betOccExact=null; state.betOccOU=null;
+  state.stopCount=null; state.firstStopFloor=null;
+  state.betStops=null; state.betFloor=null; state.betExpress=false;
+  selKey=null; winKey=null;
+  DOOR_KEYS.forEach(d=>{openAmt[d]=0;animTarget[d]=0;lightState[d]='idle';floorNum[d]='—';});
+
+  document.querySelectorAll('[data-select-door]').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('[data-stake]').forEach(b=>b.classList.toggle('active',Number(b.dataset.stake)===state.stake));
+  document.querySelectorAll('[data-occ],[data-ou],[data-stops],[data-floor]').forEach(b=>{b.classList.remove('active');b.disabled=false;});
+  premiumToggle.classList.remove('active');premiumToggle.setAttribute('aria-pressed','false');
+  const expTog=document.getElementById('expressToggle');
+  expTog.classList.remove('active');expTog.setAttribute('aria-pressed','false');
+  DOOR_KEYS.forEach(d=>{
+    const dh=document.getElementById('dh-'+d.toLowerCase());if(dh)dh.className='door-hit';
+  });
+  resultBanner.className='result-banner';
+  stageShell.classList.remove('reveal-mode');
+
+  // Reset place bet button fully
+  placeBetBtn.disabled=false;
+  placeBetBtn.textContent='Place Demo Bet';
+
+  refreshOdds();updateMeta();
+  // Reset footer lift status box back to stake display
+  const liftLabel=document.getElementById('liftStatusLabel');
+  if(liftLabel) liftLabel.textContent='Stake';
+  setStatus('Betting Open','open');
+  stageHint.textContent='Doors armed. Place your demo ticket before lock.';
+  roundLabel.textContent='Round '+String(state.roundNumber).padStart(4,'0');
+  state.roundTimer=15; updateTimer();
+  lockControls(false);
+  drawLobby();
+  runTimer();
+}
+
+function runTimer(){
+  clearInterval(state.timerTick);
+  state.roundTimer=15;updateTimer();
+  state.timerTick=setInterval(()=>{
+    state.roundTimer=Math.max(0,+(state.roundTimer-.1).toFixed(1));
+    updateTimer();
+    if(state.roundTimer<=0){clearInterval(state.timerTick);transitionToLocked();}
+  },100);
+}
+
+function updateTimer(){timerDisplay.textContent=`${state.roundTimer.toFixed(1)}s`;}
+
+function transitionToLocked(){
+  state.gameState='locked';setStatus('Bets Locked','locked');
+  lockControls(true);liveRegion.textContent='Bets locked.';playLockSound();
+  state.winningDoor=pickWinningDoor();
+  state.occCount = Math.floor(Math.random() * 5) + 1; // 1-5
+  // Stops: ~25% express (0), ~45% one stop, ~30% multi
+  const stopRoll = Math.random();
+  state.stopCount = stopRoll < 0.25 ? 0 : stopRoll < 0.70 ? 1 : 2;
+  state.firstStopFloor = state.stopCount === 0 ? null : Math.floor(Math.random() * 3) + 1; // 1-3
+
+  // Update footer lift status box
+  const liftLabel = document.getElementById('liftStatusLabel');
+  const liftVal   = document.getElementById('stageStakeMeta');
+  if(state.stopCount === 0){
+    liftLabel.textContent = 'Lift';
+    liftVal.textContent   = 'Express ⚡';
+  } else {
+    liftLabel.textContent = `Stop${state.stopCount>1?'s':''} · F${state.firstStopFloor}`;
+    liftVal.textContent   = state.stopCount===1 ? '1 stop' : '2+ stops';
+  }
+
+  // stageHint tension line
+  const hintStop = state.stopCount===0
+    ? 'Express round — no stops.'
+    : `${state.stopCount===1?'One stop':'Multi-stop'} · first stop Floor ${state.firstStopFloor}.`;
+  stageHint.textContent = 'Bets locked. ' + hintStop + ' Which door opens?';
+
+  state.revealTimeouts.push(setTimeout(transitionToReveal,900));
+}
+
+function pickWinningDoor(){
+  const pool=[];
+  DOOR_KEYS.forEach(d=>{const n=d===state.premiumDoor?22:26;for(let i=0;i<n;i++)pool.push(d);});
+  return pool[Math.floor(Math.random()*pool.length)];
+}
+
+function transitionToReveal(){
+  state.gameState='revealing';setStatus('Revealing','revealing');
+  stageHint.textContent='Indicators sweep. One door is about to split open.';
+  liveRegion.textContent='Revealing outcome.';
+  stageShell.classList.add('reveal-mode');
+  DOOR_KEYS.forEach(d=>lightState[d]='armed'); drawLobby();
+
+  const others=DOOR_KEYS.filter(d=>d!==state.winningDoor).sort(()=>Math.random()-.5);
+  const t=state.revealTimeouts;
+
+  // Fake flickers — constrained to floors 1-3 to match the actual bet options
+  const rndFloor=()=>String(Math.floor(Math.random()*3)+1);
+  t.push(setTimeout(()=>{floorNum[others[0]]=rndFloor();playFlickerSound();drawLobby();},380));
+  t.push(setTimeout(()=>{floorNum[others[0]]='—';floorNum[others[1]]=rndFloor();playFlickerSound();drawLobby();},760));
+  t.push(setTimeout(()=>{floorNum[others[1]]='—';drawLobby();},1060));
+
+  // White sweep on all
+  DOOR_KEYS.forEach((d,i)=>{t.push(setTimeout(()=>{lightState[d]='white';drawLobby();},1200+i*90));});
+  t.push(setTimeout(()=>{DOOR_KEYS.forEach(d=>{if(d!==state.winningDoor)lightState[d]='idle';});drawLobby();},1800));
+
+  // Winner fires
+  const isPrem=state.winningDoor===state.premiumDoor;
+  t.push(setTimeout(()=>{
+    floorNum[state.winningDoor] = state.firstStopFloor ? String(state.firstStopFloor) : 'EXP';
+    lightState[state.winningDoor]=isPrem?'prem':'winner';
+    winKey=state.winningDoor;
+    const floorCue = state.firstStopFloor ? ` · Floor ${state.firstStopFloor}` : ' · Express';
+    stageHint.textContent='Door '+state.winningDoor+' is opening…'+floorCue;
+    drawLobby();
+  },2100));
+
+  // Flash ★ just before door opens
+  t.push(setTimeout(()=>{
+    floorNum[state.winningDoor]='★';
+    drawLobby();
+  },2450));
+
+  // Open
+  t.push(setTimeout(()=>{animTarget[state.winningDoor]=1;playDoorOpenSound(isPrem);},2600));
+
+  // Settle
+  t.push(setTimeout(transitionToSettled,4000));
+}
+
+function transitionToSettled(){
+  state.gameState='settled';setStatus('Settled','settled');
+  const stopLabel = state.stopCount === 0 ? 'Express (no stops)' : `${state.stopCount} stop${state.stopCount>1?'s':''}`;
+  const floorLabel = state.firstStopFloor ? `First stop F${state.firstStopFloor}` : '';
+  stageHint.textContent=`Door ${state.winningDoor} opened · ${state.occCount} occupant${state.occCount!==1?'s':''} stepped out · ${stopLabel}${floorLabel?' · '+floorLabel:''}.`;
+  const mainWin=state.betPlaced&&state.selectedDoor===state.winningDoor;
+  const premiumHit=state.winningDoor===state.premiumDoor;
+  let delta=0, totalStake=0;
+
+  if(state.betPlaced){
+    // Only charge for markets the player actually entered
+    if(state.selectedDoor)          totalStake+=state.stake;
+    if(state.premiumSelected)       totalStake+=state.stake;
+    if(state.betOccExact!==null)    totalStake+=state.stake;
+    if(state.betOccOU!==null)       totalStake+=state.stake;
+    delta -= totalStake;
+
+    // Winnings
+    if(mainWin)
+      delta += state.stake * getOdds(state.winningDoor);
+    if(state.premiumSelected && premiumHit)
+      delta += state.stake * PREM_HIT_ODDS;
+    if(state.betOccExact!==null && state.betOccExact===state.occCount)
+      delta += state.stake * OCC_EXACT_ODDS;
+    if(state.betOccOU==='under' && state.occCount<=2)
+      delta += state.stake * OCC_OU_ODDS;
+    if(state.betOccOU==='over'  && state.occCount>=4)
+      delta += state.stake * OCC_OU_ODDS;
+
+    // Lift behaviour markets
+    const stopsWin  = state.betStops !== null && (
+      (state.betStops === 0 && state.stopCount === 0) ||
+      (state.betStops === 1 && state.stopCount === 1) ||
+      (state.betStops === 2 && state.stopCount >= 2)
+    );
+    const floorWin  = state.betFloor !== null && state.firstStopFloor === state.betFloor;
+    const expressWin= state.betExpress && state.stopCount === 0;
+
+    if(state.betStops !== null)  delta -= state.stake;
+    if(state.betFloor !== null)  delta -= state.stake;
+    if(state.betExpress)         delta -= state.stake;
+    if(stopsWin)   delta += state.stake * STOPS_ODDS;
+    if(floorWin)   delta += state.stake * FLOOR_ODDS;
+    if(expressWin) delta += state.stake * EXPRESS_ODDS;
+
+    // Round to 2dp to prevent float drift
+    delta = parseFloat(delta.toFixed(2));
+    state.balance = parseFloat((state.balance + delta).toFixed(2));
+    if(state.balance < 0) state.balance = 0;
+  }
+
+  updateMeta();
+  if(state.betPlaced) flashBalance(delta>0);
+  resultBanner.className='result-banner show';
+  if(mainWin&&premiumHit&&state.premiumSelected){resultBanner.classList.add('premium-win');playWinSound(true);}
+  else if(delta>0){resultBanner.classList.add('win');playWinSound(false);}
+  else{resultBanner.classList.add('loss');if(state.betPlaced)playLoseSound();}
+
+  document.getElementById('resultTitle').textContent = premiumHit
+    ? `★ Door ${state.winningDoor} · Premium Round`
+    : `Door ${state.winningDoor} opened first`;
+  const occExactWin = state.betOccExact!==null && state.betOccExact===state.occCount;
+  const occOUWin = (state.betOccOU==='under'&&state.occCount<=2)||(state.betOccOU==='over'&&state.occCount>=4);
+  const stopsWinR = state.betStops !== null && (
+    (state.betStops===0&&state.stopCount===0)||(state.betStops===1&&state.stopCount===1)||(state.betStops===2&&state.stopCount>=2));
+  const floorWinR  = state.betFloor !== null && state.firstStopFloor === state.betFloor;
+  const expressWinR= state.betExpress && state.stopCount === 0;
+  const stopCountLabel = state.stopCount===0?'Express':state.stopCount===1?'1 stop':'2+ stops';
+  const floorReveal = state.firstStopFloor ? ` · First stop F${state.firstStopFloor}` : '';
+
+  // Line 1: what happened
+  const factLine = `Door ${state.winningDoor} opened${premiumHit?' (Premium)':''} · ${state.occCount} occupant${state.occCount!==1?'s':''} · ${stopCountLabel}${floorReveal}`;
+
+  // Line 2: how each bet did — only markets the player entered
+  const betResults = [];
+  if(state.betPlaced){
+    if(state.selectedDoor)        betResults.push(`Door ${state.selectedDoor} ${mainWin?'✓':'✗'}`);
+    if(state.premiumSelected)     betResults.push(`Premium ${premiumHit?'✓':'✗'}`);
+    if(state.betOccExact!==null)  betResults.push(`${state.betOccExact} people ${occExactWin?'✓':'✗'}`);
+    if(state.betOccOU!==null)     betResults.push(`${state.betOccOU==='over'?'Over 3':'Under 3'} ${occOUWin?'✓':'✗'}`);
+    if(state.betStops!==null)     betResults.push(`${state.betStops===0?'0':state.betStops===1?'1':'2+'} stops ${stopsWinR?'✓':'✗'}`);
+    if(state.betFloor!==null)     betResults.push(`F${state.betFloor} ${floorWinR?'✓':'✗'}`);
+    if(state.betExpress)          betResults.push(`Express ${expressWinR?'✓':'✗'}`);
+  }
+
+  document.getElementById('resultSub').textContent =
+    betResults.length ? factLine + ' · ' + betResults.join(' · ') : factLine;
+
+  // Amount display: +£X for win, -£X for loss, £0.00 for break-even
+  const amtEl = document.getElementById('resultAmount');
+  if(!state.betPlaced){ amtEl.textContent='—'; }
+  else if(delta>0)    { amtEl.textContent='+'+formatMoney(delta); }
+  else if(delta<0)    { amtEl.textContent='-'+formatMoney(Math.abs(delta)); }
+  else                { amtEl.textContent='£0.00'; }
+
+  liveRegion.textContent=`Door ${state.winningDoor} opened first.`;
+  state.history.unshift({door:state.winningDoor,premium:premiumHit});
+  renderHistory();
+
+  // Show all four door outcomes in floor indicators for the settled window
+  // Generate plausible floor/express values for the non-winning doors
+  DOOR_KEYS.forEach(d=>{
+    if(d===state.winningDoor){
+      floorNum[d]='★';
+    } else {
+      // Each losing door independently either express or stopped at a random floor 1-3
+      const loserExpress = Math.random()<0.25;
+      floorNum[d] = loserExpress ? 'EXP' : String(Math.floor(Math.random()*3)+1);
+      lightState[d]='idle';
+    }
+  });
+  drawLobby();
+
+  let cue=5; document.getElementById('nextCue').textContent='Next round in '+cue+'…';
+  const ci=setInterval(()=>{cue--;document.getElementById('nextCue').textContent=cue>0?'Next round in '+cue+'…':'';if(cue<=0)clearInterval(ci);},1000);
+  state.revealTimeouts.push(setTimeout(startRound,5500));
+}
+
+// ── REPLAY ────────────────────────────────────────────────────────────────
+document.getElementById('replayBtn').addEventListener('click',()=>{
+  if(state.gameState!=='settled'||!state.winningDoor)return;
+  // Cancel the auto-next-round timer
+  state.revealTimeouts.forEach(clearTimeout);
+  state.revealTimeouts=[];
+  const savedWinner=state.winningDoor;
+  DOOR_KEYS.forEach(d=>{openAmt[d]=0;animTarget[d]=0;lightState[d]='idle';floorNum[d]='—';winKey=null;});
+  drawLobby();stageShell.classList.remove('reveal-mode');
+  setStatus('Revealing','revealing');
+  setTimeout(()=>{
+    state.winningDoor=savedWinner;
+    winKey=null;
+    transitionToReveal();
+  },400);
+});
+
+// ── BETTING CONTROLS ──────────────────────────────────────────────────────
+document.querySelectorAll('[data-select-door]').forEach(btn=>btn.addEventListener('click',()=>selectDoor(btn.dataset.selectDoor)));
+
+// Occupant exact number
+document.querySelectorAll('[data-occ]').forEach(btn=>btn.addEventListener('click',()=>{
+  if(state.gameState!=='betting'||state.betPlaced)return;
+  const v=Number(btn.dataset.occ);
+  state.betOccExact = state.betOccExact===v ? null : v;
+  document.querySelectorAll('[data-occ]').forEach(b=>b.classList.toggle('active',Number(b.dataset.occ)===state.betOccExact));
+  updateMeta(); playBetSound();
+}));
+
+// Over/Under
+document.querySelectorAll('[data-ou]').forEach(btn=>btn.addEventListener('click',()=>{
+  if(state.gameState!=='betting'||state.betPlaced)return;
+  const v=btn.dataset.ou;
+  state.betOccOU = state.betOccOU===v ? null : v;
+  document.querySelectorAll('[data-ou]').forEach(b=>b.classList.toggle('active',b.dataset.ou===state.betOccOU));
+  updateMeta(); playBetSound();
+}));
+
+// Stops
+document.querySelectorAll('[data-stops]').forEach(btn=>btn.addEventListener('click',()=>{
+  if(state.gameState!=='betting'||state.betPlaced)return;
+  const v=Number(btn.dataset.stops);
+  state.betStops = state.betStops===v ? null : v;
+  document.querySelectorAll('[data-stops]').forEach(b=>b.classList.toggle('active',Number(b.dataset.stops)===state.betStops));
+  updateMeta(); playBetSound();
+}));
+
+// Floor of first stop
+document.querySelectorAll('[data-floor]').forEach(btn=>btn.addEventListener('click',()=>{
+  if(state.gameState!=='betting'||state.betPlaced)return;
+  const v=Number(btn.dataset.floor);
+  state.betFloor = state.betFloor===v ? null : v;
+  document.querySelectorAll('[data-floor]').forEach(b=>b.classList.toggle('active',Number(b.dataset.floor)===state.betFloor));
+  updateMeta(); playBetSound();
+}));
+
+// Express toggle
+document.getElementById('expressToggle').addEventListener('click',()=>{
+  if(state.gameState!=='betting'||state.betPlaced)return;
+  state.betExpress=!state.betExpress;
+  const et=document.getElementById('expressToggle');
+  et.classList.toggle('active',state.betExpress);
+  et.setAttribute('aria-pressed',String(state.betExpress));
+  updateMeta(); playBetSound();
+});
+document.querySelectorAll('[data-stake]').forEach(btn=>btn.addEventListener('click',()=>{
+  if(state.gameState!=='betting')return;
+  state.stake=Number(btn.dataset.stake);
+  document.querySelectorAll('[data-stake]').forEach(b=>b.classList.toggle('active',Number(b.dataset.stake)===state.stake));
+  updateMeta();playBetSound();
+}));
+premiumToggle.addEventListener('click',()=>{
+  if(state.gameState!=='betting')return;
+  state.premiumSelected=!state.premiumSelected;
+  premiumToggle.classList.toggle('active',state.premiumSelected);
+  premiumToggle.setAttribute('aria-pressed',String(state.premiumSelected));
+  updateMeta();playBetSound();
+});
+placeBetBtn.addEventListener('click',()=>{
+  if(state.gameState!=='betting'||state.betPlaced)return;
+  // Require at least one market selected
+  const hasAny = state.selectedDoor || state.premiumSelected || state.betOccExact!==null || state.betOccOU!==null
+               || state.betStops!==null || state.betFloor!==null || state.betExpress;
+  if(!hasAny){
+    stageHint.textContent='Select at least one market before placing your bet.';
+    return;
+  }
+  state.betPlaced=true;
+  placeBetBtn.disabled=true;
+  placeBetBtn.textContent='✓ Bet Confirmed';
+  stageHint.textContent='Ticket placed. Waiting for lock.';
+  updateMeta();
+  playBetSound();
+});
+quickPickBtn.addEventListener('click',()=>{
+  if(state.gameState!=='betting'||state.betPlaced)return;
+  selectDoor(DOOR_KEYS[Math.floor(Math.random()*4)]);
+  if(Math.random()>.45&&!state.premiumSelected){
+    state.premiumSelected=true;premiumToggle.classList.add('active');premiumToggle.setAttribute('aria-pressed','true');
+    updateMeta();
+  }
+});
+document.getElementById('soundToggle').addEventListener('click',()=>{
+  state.soundOn=!state.soundOn;
+  document.getElementById('soundToggle').textContent=state.soundOn?'🔊':'🔈';
+  ensureAudio();
+});
+
+// ── BOOT ──────────────────────────────────────────────────────────────────
+// Bind door hit overlays
+document.querySelectorAll('.door-hit[data-door]').forEach(el=>el.addEventListener('click',()=>selectDoor(el.dataset.door)));
+
+renderHistory();
+drawLobby();
+startRound();
+</script>
+</body>
+</html>
