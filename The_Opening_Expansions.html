@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The Opening — Game Expansions</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap');
+
+:root {
+  --gold:    #c9a84c;
+  --gold-2:  #e8c870;
+  --gold-3:  #a8863a;
+  --gold-dim: rgba(201,168,76,.18);
+  --bg:      #080605;
+  --surface: #0f0c09;
+  --surface-2:#161210;
+  --border:  rgba(201,168,76,.14);
+  --text:    #ede8df;
+  --muted:   #8a8070;
+  --faint:   #4a4438;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+/* ── NOISE TEXTURE ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: .028;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── GOLD RADIAL GLOW ── */
+body::after {
+  content: '';
+  position: fixed;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 500px;
+  background: radial-gradient(ellipse, rgba(201,168,76,.07) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 3rem 2rem 6rem;
+}
+
+/* ── HEADER ── */
+.site-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+
+.eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: .68rem;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.site-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  font-weight: 900;
+  letter-spacing: -.02em;
+  line-height: 1;
+  margin-bottom: .75rem;
+  background: linear-gradient(180deg, var(--gold-2) 0%, var(--gold) 60%, var(--gold-3) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.site-header p {
+  color: var(--muted);
+  font-size: .95rem;
+  max-width: 44ch;
+  margin: 0 auto;
+  font-family: 'DM Mono', monospace;
+  font-size: .8rem;
+  letter-spacing: .04em;
+}
+
+/* Ornament */
+.ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  opacity: .5;
+}
+.ornament::before, .ornament::after {
+  content: '';
+  flex: 1;
+  max-width: 120px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold));
+}
+.ornament::after { background: linear-gradient(270deg, transparent, var(--gold)); }
+.ornament-icon {
+  width: 28px; height: 28px;
+  border: 1px solid var(--gold-3);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: .7rem;
+}
+
+/* ── CATEGORY SECTIONS ── */
+.category {
+  margin-bottom: 3rem;
+  opacity: 0;
+  transform: translateY(18px);
+  animation: fadeUp .55s ease forwards;
+}
+.category:nth-child(1) { animation-delay: .08s }
+.category:nth-child(2) { animation-delay: .16s }
+.category:nth-child(3) { animation-delay: .24s }
+.category:nth-child(4) { animation-delay: .32s }
+.category:nth-child(5) { animation-delay: .40s }
+.category:nth-child(6) { animation-delay: .48s }
+.category:nth-child(7) { animation-delay: .56s }
+.category:nth-child(8) { animation-delay: .64s }
+
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.cat-header {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding-bottom: .75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.cat-emoji {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.cat-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--gold-2);
+  letter-spacing: -.01em;
+}
+
+.cat-tag {
+  margin-left: auto;
+  font-family: 'DM Mono', monospace;
+  font-size: .62rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--faint);
+  border: 1px solid var(--faint);
+  padding: .2rem .55rem;
+  border-radius: 999px;
+}
+
+/* ── ITEMS ── */
+.items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: .6rem;
+}
+
+.item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: .85rem 1rem;
+  display: flex;
+  align-items: flex-start;
+  gap: .75rem;
+  transition: border-color .2s, background .2s, transform .2s;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+
+.item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(201,168,76,.04), transparent 60%);
+  opacity: 0;
+  transition: opacity .2s;
+}
+
+.item:hover {
+  border-color: rgba(201,168,76,.35);
+  background: var(--surface-2);
+  transform: translateY(-1px);
+}
+.item:hover::before { opacity: 1; }
+
+.item-bullet {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold-3);
+  margin-top: .48rem;
+  flex-shrink: 0;
+}
+
+.item-text {
+  font-size: .88rem;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.item-sub {
+  font-size: .75rem;
+  color: var(--muted);
+  margin-top: .15rem;
+  font-family: 'DM Mono', monospace;
+}
+
+/* ── NEXT UP CALLOUT ── */
+.callout {
+  margin-top: 3.5rem;
+  border: 1px solid rgba(201,168,76,.28);
+  border-radius: 18px;
+  padding: 1.75rem 2rem;
+  background: linear-gradient(135deg, rgba(201,168,76,.07), rgba(201,168,76,.02) 60%, transparent);
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  animation: fadeUp .55s .72s ease forwards;
+}
+
+.callout::after {
+  content: '';
+  position: absolute;
+  right: -40px; top: -60px;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,168,76,.12), transparent 65%);
+  pointer-events: none;
+}
+
+.callout-label {
+  font-family: 'DM Mono', monospace;
+  font-size: .65rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: .75rem;
+  display: block;
+}
+
+.callout h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: .6rem;
+  color: var(--gold-2);
+}
+
+.callout p {
+  color: var(--muted);
+  font-size: .88rem;
+  max-width: 60ch;
+}
+
+.callout-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin-top: 1rem;
+}
+
+.chip {
+  font-family: 'DM Mono', monospace;
+  font-size: .68rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: .35rem .8rem;
+  border-radius: 999px;
+  border: 1px solid rgba(201,168,76,.3);
+  color: var(--gold);
+  background: rgba(201,168,76,.06);
+}
+
+/* ── FOOTER ── */
+.site-footer {
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  font-family: 'DM Mono', monospace;
+  font-size: .68rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+@media(max-width: 600px) {
+  .wrap { padding: 2rem 1.25rem 5rem; }
+  .items { grid-template-columns: 1fr; }
+  .site-header h1 { font-size: 2.2rem; }
+  .callout { padding: 1.25rem; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="site-header">
+    <span class="eyebrow">Investor Demo · Concept Roadmap</span>
+    <div class="ornament"><div class="ornament-icon">★</div></div>
+    <h1>The Opening</h1>
+    <p>All possible game expansions — from easy wins to advanced formats</p>
+  </header>
+
+  <div class="category">
+    <div class="cat-header">
+      <span class="cat-emoji">🚪</span>
+      <span class="cat-title">Core Bet Extensions</span>
+      <span class="cat-tag">Easy wins</span>
+    </div>
+    <div class="items">
+      <div class="item"><div class="item-bullet"></div><div><div class="item-text">Direction of travel</div><div class="item-sub">Going up / going down</div></div></div>
+      <div class="item"><div class="item-bullet"></div><div><div class="item-text">Departure floor</div><div class="item-sub">Which floor the lift starts from</div></div></div>
+      <div class="item"><div class="item-bullet"></div><div><div class="item-text">Total floors travelled</div><div class="item-sub">Short / medium / long journey</div></div></div>
+      <div class="item"><div class="item-bullet"></div><div><div class="item-text">Lift speed</div><div class="item-sub">Slow / normal / fast reveal</div></div></div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="cat-header">
+      <span class="cat-emoji">👥</span>
+      <span class="cat-title">Occupant Extensions</span>
+      <span class="cat-tag">Character layer</span>
+    </div>
+    <div class="items">
+      <div class="item"><div class="item-bullet"></div><div><div class="item-text">Gender split</div><div class="item-sub">All male / all female / mixed</div></div></div>
+      <div class="item"><div class="item-bullet"></div><div><div class="item-text">VIP in the group</div><div class="item-sub">Yes / no — crown character present</div></div></div>
+      <div class="item"><div class="item-bullet"></div><div><div class="item-text">Occupant carrying luggage</div><div class="item-sub">Yes / no — guest character present</div></div></div>
+      <div class="item"><div class="item-bullet"></div><div><div class="item-text">First person out</div><div class="item-sub">Business / guest / concierge / VIP</div></div></div>
+      <div class="item"><div class="item-bullet"></div><div><div class="item-text">Empty lift</div><div class="item-sub">0 occupants — rare event, high odds</div></div></div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="cat-header">
+      <span class="cat-emoji">⚡</span>
+      <span class="cat-title">Lift Journey Extensions</span>
+      <span class="cat-tag">Already started</span>
+    </div>
+    <div class="items">
+      <div class="item"><div class="item-bullet"></div><div><div class="item-text">Direction change mid-journey</div><div class="item-sub">Lift reverses before reaching lobby</div></div></div>
+      <div class="item"><div class="item-bullet"></div><div><div class="item-text">Doors open twice</div><div class="item-sub">Opens at a floor before the lobby</div></div></div>
+      <div class="item"><div class="item-bullet"></div><div><div class="item-text">Instant open</div><div class="item-sub">Lift was already at lobby level</div></div></div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="cat-header">
+      <span class="cat-emoji">⏱</span>
+      <span class="cat-title">Timing Bets</span>
+      <span class="cat-tag">Adds tension</span>
+    </div>
+    <div class="items">
+      <div class="item"><div class="item-bullet"></div><div><div class="item-text">Early or late open</div><div class="item-sub">First half of reveal / second half</div></div></div>
+      <div class="item"><div class="item-bullet"></div><div><div class="item-text">Premium before final door</div><div class="item-sub">Premium fires before last reveal beat</div></div></div>
+      <div class="item"><div class="item-bullet"></div><div><div class="item-text">Which door flickers first</div><div class="item-sub">A / B / C / D — during the sweep</div></div></div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="cat-header">
+      <span class="cat-emoji">🔗</span>
+      <span class="cat-title">Combination Bets</span>
+      <span class="cat-tag">Revenue layer</span>
+    </div>
+    <div class="items">
+      <div class="item"><div class="item-bullet"></div><div><div class="item-text">Door + occupant count</div><div class="item-sub">e.g. Door B and exactly 3 people</div></div></div>
+      <div class="item"><div class="item-bullet"></div><div><div class="item-text">Express + premium</div><div class="item-sub">Both conditions must hit together</div></div></div>
+      <div class="item"><div class="item-bullet"></div><div><div class="item-text">High occupancy without premium</div><div class="item-sub">4–5 people, non-premium door wins</div></div></div>
+      <div class="item"><div class="item-bullet"></div><div><div class="item-text">Empty lift</div><div class="item-sub">0 occupants — rare, high multiplier</div></div></div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="cat-header">
+      <span class="cat-emoji">🏆</span>
+      <span class="cat-title">Streak &amp; Session Bets</span>
+      <span class="cat-tag">Retention layer</span>
+    </div>
+    <div class="items">
+      <div class="item"><div class="item-bullet"></div><div><div class="item-text">Premium two rounds running</div><div class="item-sub">Premium door wins back to back</div></div></div>
+      <div class="item"><div class="item-bullet"></div><div><div class="item-text">Same door wins twice</div><div class="item-sub">Identical winner two rounds in a row</div></div></div>
+      <div class="item"><div class="item-bullet"></div><div><div class="item-text">Over 3 occupants, three rounds</div><div class="item-sub">High occupancy streak bet</div></div></div>
+      <div class="item"><div class="item-bullet"></div><div><div class="item-text">Next round higher / lower</div><div class="item-sub">More or fewer occupants than this round</div></div></div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="cat-header">
+      <span class="cat-emoji">🏢</span>
+      <span class="cat-title">Multi-Lift Mode</span>
+      <span class="cat-tag">Format change</span>
+    </div>
+    <div class="items">
+      <div class="item"><div class="item-bullet"></div><div><div class="item-text">Lift race</div><div class="item-sub">Which of two lifts opens first</div></div></div>
+      <div class="item"><div class="item-bullet"></div><div><div class="item-text">Both lifts open</div><div class="item-sub">Predict both winning doors</div></div></div>
+      <div class="item"><div class="item-bullet"></div><div><div class="item-text">Matching round</div><div class="item-sub">Same door wins as previous round</div></div></div>
+      <div class="item"><div class="item-bullet"></div><div><div class="item-text">Ghost lift</div><div class="item-sub">One lift is a decoy — never opens</div></div></div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="cat-header">
+      <span class="cat-emoji">🎰</span>
+      <span class="cat-title">Special Round Types</span>
+      <span class="cat-tag">Modifiers</span>
+    </div>
+    <div class="items">
+      <div class="item"><div class="item-bullet"></div><div><div class="item-text">Express-only round</div><div class="item-sub">All lifts are express this round</div></div></div>
+      <div class="item"><div class="item-bullet"></div><div><div class="item-text">Rush hour</div><div class="item-sub">Occupant count doubled</div></div></div>
+      <div class="item"><div class="item-bullet"></div><div><div class="item-text">VIP round</div><div class="item-sub">Premium odds boosted for one round</div></div></div>
+      <div class="item"><div class="item-bullet"></div><div><div class="item-text">Dead of night</div><div class="item-sub">One lift active only — higher payout</div></div></div>
+      <div class="item"><div class="item-bullet"></div><div><div class="item-text">Double or nothing</div><div class="item-sub">Stake doubled automatically, can't back out</div></div></div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <span class="callout-label">Recommended next additions</span>
+    <h3>Closest to what's already built</h3>
+    <p>These four sit right at the edge of the current codebase — low effort, high demo impact.</p>
+    <div class="callout-chips">
+      <span class="chip">Direction of travel</span>
+      <span class="chip">First person out</span>
+      <span class="chip">Empty lift</span>
+      <span class="chip">Next round higher / lower</span>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    The Opening · Game Concept Roadmap · Investor Demo
+  </footer>
+
+</div>
+</body>
+</html>
